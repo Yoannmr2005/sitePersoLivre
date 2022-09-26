@@ -7,6 +7,7 @@
  */
 ?>
 <?php session_start(); ?>
+<?php include("session.php"); ?>
 <?php include("vues/header.php"); ?>
 
 <?php
@@ -19,10 +20,21 @@ switch ($uc) {
     case 'accueil':
         include("vues/accueil.php");
         break;
-    
-    case 'liste':
-        
+    case 'connect':
+        require_once('Controllers/connectionControlleur.php');
         break;
+    case 'disconnect':
+        require_once('Controllers/deconnectionControlleur.php');
+        break;
+    case 'liste':
+        require_once('Controllers/listeControlleur.php');
+        break;
+    case 'admin':
+        require_once('Controllers/adminControlleur.php');
+        break;
+    case 'listePerso':
+        require_once('Controllers/personnalListeControlleur.php');
+        break;   
 }
 
 ?>
