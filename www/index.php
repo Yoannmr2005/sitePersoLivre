@@ -30,7 +30,7 @@ switch ($uc) {
         require_once('Controllers/listeControlleur.php');
         break;
     case 'admin':
-        require_once('Controllers/adminControlleur.php');
+        require_once('vues/admin.php');
         break;
     case 'listePerso':
         require_once('Controllers/personnalListeControlleur.php');
