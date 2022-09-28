@@ -49,15 +49,8 @@
                         if (isset($_SESSION["idutilisateur"])) {
                         ?>
                             <li><a href="index.php?uc=compte&id=<?= $_SESSION["idutilisateur"] ?>" class="nav-link px-2 text-white">Gérer mon compte</a></li>
-                        <?php
-                        }
-                        ?>
-
-                        <!--
-                        <a href='gestionCompte.php?id=<?php // $idUtilisateur["idutilisateur"] 
-                                                        ?>'>Gérer mon compte</a>";
-                        -->
                     <?php
+                        }
                     }
                     ?>
                 </ul>
@@ -71,7 +64,7 @@
                     <?php
                     } else {
                     ?>
-                        <button type="button" class="btn btn-warning"><a href="index.php?uc=disconnect" class="text-decoration-none text-dark">Se deconnecter</a></button>
+                        <button type="button" class="btn btn-warning"><a href="index.php?uc=connect&action=disconnect" class="text-decoration-none text-dark">Se deconnecter</a></button>
                     <?php
                     }
 

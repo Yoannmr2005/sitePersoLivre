@@ -211,4 +211,20 @@ class User
         }
         return false;
     }
+
+    /**
+     * fonction qui détruit la séssion, nous déconnectons
+     *
+     * @return void
+     */
+    public static function Disconnect()
+    {
+        $_SESSION = [];
+        if (ini_get("session.use_cookies")) {
+            setcookie(session_name(), '', 0);
+        }
+        session_destroy();
+        header("location: index.php");
+        exit;
+    }
 }

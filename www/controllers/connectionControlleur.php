@@ -30,8 +30,8 @@ switch ($action) {
         }
         include("vues/login.php");
         break;
-    case 'deconnexion':
-        # code...
+    case 'disconnect':
+        User::Disconnect();
         break;
     case 'inscription':
         # code...
