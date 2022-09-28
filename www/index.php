@@ -8,7 +8,11 @@
 ?>
 <?php session_start(); ?>
 <?php include("session.php"); ?>
-<?php include("vues/header.php"); ?>
+<?php 
+include("vues/header.php"); 
+include("modeles/Livre.php");
+include("modeles/monPdo.php");
+?>
 
 <?php
 // Récupère les paramètres GET
@@ -18,22 +22,22 @@ $uc = empty($getUc) ? "accueil" : $getUc;
 
 switch ($uc) {
     case 'accueil':
-        include("vues/accueil.php");
+        require_once('controllers/livreControlleur.php');
         break;
     case 'connect':
-        require_once('Controllers/connectionControlleur.php');
+        require_once('controllers/connectionControlleur.php');
         break;
     case 'disconnect':
-        require_once('Controllers/deconnectionControlleur.php');
+        require_once('controllers/deconnectionControlleur.php');
         break;
     case 'liste':
-        require_once('Controllers/listeControlleur.php');
+        require_once('controllers/listeControlleur.php');
         break;
     case 'admin':
         require_once('vues/admin.php');
         break;
     case 'listePerso':
-        require_once('Controllers/personnalListeControlleur.php');
+        require_once('controllers/livreControlleur.php');
         break;   
 }
 

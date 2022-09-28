@@ -10,8 +10,8 @@ class MonPdo
 
     private static $serveur = 'mysql:host=localhost';
     private static $bdd = 'dbname=dblivre';
-    private static $user = 'root';
-    private static $mdp = '';
+    private static $user = 'dbmonstres';
+    private static $mdp = 'MegaSecret';
     private static $monPdo;
     private static $unPdo = null;
 
@@ -49,7 +49,7 @@ class MonPdo
 
     public static function PDO_Select_All($sql,$param){
         $query = MonPdo::dbRun($sql,$param);
-        return $query->fetchAll(PDO::FETCH_OBJ);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Livre');
     }
     
     public static function PDO_Select($sql,$param){

@@ -50,7 +50,10 @@ class Genre {
      */
     public static function findAll(): array
     {
-        return MonPdo::PDO_Select_All("SELECT `idgenre`, `genre` FROM genre", []);
+        $sql = "SELECT `idgenre`, `genre` FROM genre";
+        $param = [];
+        $query = MonPdo::dbRun($sql,$param);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Genre');
     }
 
     /**
@@ -61,7 +64,10 @@ class Genre {
      */
     public static function findById(int $id): Genre
     {
-        return MonPdo::PDO_Select("SELECT `idgenre`, `genre` FROM genre WHERE idgenre = ?", [$id]);
+        $sql = "SELECT `idgenre`, `genre` FROM genre WHERE idgenre = ?";
+        $param = [$id];
+        $query = MonPdo::dbRun($sql,$param);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Genre');
     }
 
     /**
@@ -74,7 +80,8 @@ class Genre {
     {
         $sql = "INSERT INTO genre (`genre`) VALUES (?)";
         $param = [$genre->getGenre()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 
     /**
@@ -87,7 +94,8 @@ class Genre {
     {
         $sql = "UPDATE genre SET `genre` = ? WHERE idgenre = ?)";
         $param = [$genre->getGenre(), $genre->getIdgenre()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 
     /**
@@ -100,6 +108,7 @@ class Genre {
     {
         $sql = "DELETE FROM genre WHERE idgenre = ?)";
         $param = [$genre->getIdgenre()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 }

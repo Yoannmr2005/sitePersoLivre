@@ -131,7 +131,10 @@ class User {
      */
     public static function findAll(): array
     {
-        return MonPdo::PDO_Select_All("SELECT `idutilisateur`, `nom`, `email`, `mdp`, `role` FROM utilisateur", []);
+        $sql = "SELECT `idutilisateur`, `nom`, `email`, `mdp`, `role` FROM utilisateur";
+        $param = [];
+        $query = MonPdo::dbRun($sql,$param);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'User');
     }
 
     /**
@@ -142,7 +145,10 @@ class User {
      */
     public static function findById(int $id): User
     {
-        return MonPdo::PDO_Select("SELECT `idutilisateur`, `nom`, `email`, `mdp`, `role` FROM utilisateur WHERE idutilisateur = ?", [$id]);
+        $sql = "SELECT `idutilisateur`, `nom`, `email`, `mdp`, `role` FROM utilisateur WHERE idutilisateur = ?";
+        $param = [$id];
+        $query = MonPdo::dbRun($sql,$param);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'User');
     }
 
     /**
@@ -155,7 +161,8 @@ class User {
     {
         $sql = "INSERT INTO genre (`nom`, `email`, `mdp`, `role`) VALUES (?, ?, ?, ?)";
         $param = [$user->getNom(), $user->getEmail(), $user->getMdp(), $user->getRole()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 
     /**
@@ -168,7 +175,8 @@ class User {
     {
         $sql = "UPDATE genre SET `nom` = ?, `email` = ?, `mdp` = ?, `role` = ? WHERE idutilisateur = ?)";
         $param = [$user->getNom(), $user->getEmail(), $user->getMdp(), $user->getRole(), $user->getIdutilisateur()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 
     /**
@@ -181,6 +189,7 @@ class User {
     {
         $sql = "DELETE FROM utilisateur WHERE idutilisateur = ?)";
         $param = [$user->getIdutilisateur()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 }

@@ -1,7 +1,4 @@
 <?php
-
-use Livre as GlobalLivre;
-
 class Livre
 {
     /**
@@ -216,7 +213,18 @@ class Livre
      */
     public static function findAll(): array
     {
-        return MonPdo::PDO_Select_All("SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre", []);
+        $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre";
+        $param = [];
+        $query = MonPdo::dbRun($sql,$param);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Livre');
+    }
+
+    public static function find5mostView()
+    {
+        $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre ORDER BY `vente` DESC LIMIT 5";
+        $param = [];
+        $query = MonPdo::dbRun($sql,$param);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Livre');
     }
 
     /**
@@ -225,9 +233,12 @@ class Livre
      * @param integer $id
      * @return Livre
      */
-    public static function findById(int $id): Livre
-    {
-        return MonPdo::PDO_Select("SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre WHERE idlivre = ?", [$id]);
+    public static function findById(int $id) : array
+    { 
+        $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre WHERE idlivre = ?;";
+        $param = [$id];
+        $query = MonPdo::dbRun($sql,$param);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Livre');
     }
 
     /**
@@ -240,7 +251,8 @@ class Livre
     {
         $sql = "INSERT INTO livre (`nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 
     /**
@@ -253,7 +265,8 @@ class Livre
     {
         $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?, `idgenre`= ?, `image`= ? WHERE idlivre = ?)";
         $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getIdlivre()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 
     /**
@@ -266,6 +279,7 @@ class Livre
     {
         $sql = "DELETE FROM livre WHERE idlivre = ?)";
         $param = [$livre->getIdlivre()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 }

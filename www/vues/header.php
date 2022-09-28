@@ -28,7 +28,7 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="index.php" class="nav-link px-2 text-white">Accueil</a></li>
-                    <li><a href="index.php?uc=liste" class="nav-link px-2 text-white">Liste de livre</a></li>
+                    <li><a href="index.php?uc=liste&action=liste" class="nav-link px-2 text-white">Liste de livre</a></li>
                     <?php
                     // Affiche un lien si on est connecté 
                     if (isset($_SESSION["compte"])) {
@@ -38,7 +38,7 @@
                         <?php
                         } elseif ($_SESSION["compte"]["utilisateur"] == 1) {
                         ?>
-                            <li><a href="index.php?uc=listePerso" class="nav-link px-2 text-white">Ma liste</a></li>
+                            <li><a href="index.php?uc=listePerso&action=listePerso" class="nav-link px-2 text-white">Ma liste</a></li>
                         <?php
                         } else {
                             echo "";

@@ -63,7 +63,10 @@ class Liste {
      */
     public static function findById(int $id): Liste
     {
-        return MonPdo::PDO_Select("SELECT `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre JOIN liste ON (livre.idlivre = liste.idlivre) WHERE liste.idutilisateur = ?", [$id]);
+        $sql = "SELECT `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre JOIN liste ON (livre.idlivre = liste.idlivre) WHERE liste.idutilisateur = ?";
+        $param = [$id];
+        $query = MonPdo::dbRun($sql,$param);
+        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Liste');
     }
 
     /**
@@ -76,7 +79,8 @@ class Liste {
     {
         $sql = "INSERT INTO liste (`idlivre`, `idutilisateur` VALUES (?, ?)";
         $param = [$liste->getIdlivre(), $liste->getIdutilisateur()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 
     /**
@@ -89,7 +93,8 @@ class Liste {
     {
         $sql = "DELETE FROM livre WHERE idlivre = ?)";
         $param = [$liste->getIdlivre()];
-        return MonPdo::PDO_Insert_Update_Delete($sql, $param);
+        $query = MonPdo::dbRun($sql,$param);
+        return $query;
     }
 }
 ?>

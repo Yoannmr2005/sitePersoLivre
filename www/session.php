@@ -7,6 +7,6 @@ if (!isset($_SESSION["compte"])) {
 }
 
 // Recupère l'id de l'utilisateur connecté
-if (isset($_SESSION["nomConnecte"])) {
+//if (isset($_SESSION["nomConnecte"])) {
     //$idUtilisateur = PDO_Select("SELECT idutilisateur FROM utilisateur WHERE nom = ?", [$_SESSION["nomConnecte"]]);
-}
+//}
