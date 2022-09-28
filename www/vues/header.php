@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
@@ -44,7 +45,18 @@
                             echo "";
                         }
                         ?>
-                        <!-- <a href='gestionCompte.php?id=<?= $idUtilisateur["idutilisateur"] ?>'>Gérer mon compte</a>"; -->
+                        <?php
+                        if (isset($_SESSION["idutilisateur"])) {
+                        ?>
+                            <li><a href="index.php?uc=compte&id=<?= $_SESSION["idutilisateur"] ?>" class="nav-link px-2 text-white">Gérer mon compte</a></li>
+                        <?php
+                        }
+                        ?>
+
+                        <!--
+                        <a href='gestionCompte.php?id=<?php // $idUtilisateur["idutilisateur"] 
+                                                        ?>'>Gérer mon compte</a>";
+                        -->
                     <?php
                     }
                     ?>

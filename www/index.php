@@ -28,9 +28,6 @@ switch ($uc) {
     case 'connect':
         require_once('controllers/connectionControlleur.php');
         break;
-    case 'disconnect':
-        require_once('controllers/deconnectionControlleur.php');
-        break;
     case 'liste':
         require_once('controllers/livreControlleur.php');
         break;

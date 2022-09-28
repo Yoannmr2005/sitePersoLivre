@@ -19,7 +19,4 @@ switch ($action) {
         $genreLivre = Genre::findById($livre->getIdgenre());
         include("vues/infoLivre.php");
         break;
-    case 'afficherlistePerso':
-        # code...
-        break;
 }
