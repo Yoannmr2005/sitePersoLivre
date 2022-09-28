@@ -7,6 +7,11 @@ switch ($action) {
         include("vues/accueil.php");
         break;
     case 'liste':
+        $liste = new Livre();
+        $liste = Livre::findAll();
+        include("vues/liste.php");
+        break;
+    case 'livre':
         # code...
         break;
     case 'listePerso':

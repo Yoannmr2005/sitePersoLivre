@@ -46,19 +46,4 @@ class MonPdo
         $statement->execute($param);
         return $statement;
     }
-
-    public static function PDO_Select_All($sql,$param){
-        $query = MonPdo::dbRun($sql,$param);
-        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Livre');
-    }
-    
-    public static function PDO_Select($sql,$param){
-        $query = MonPdo::dbRun($sql,$param);
-        return $query->fetch(PDO::FETCH_OBJ);
-    }
-    
-    public static function PDO_Insert_Update_Delete($sql,$param){
-        $query = MonPdo::dbRun($sql,$param);
-        return $query;
-    }
 }
