@@ -12,9 +12,14 @@ switch ($action) {
         include("vues/liste.php");
         break;
     case 'livre':
-        # code...
+        $id = filter_input(INPUT_GET,"id",FILTER_VALIDATE_INT);
+        $livre = new Livre();
+        $livre = Livre::findById($id);
+        $genreLivre = new Genre();
+        $genreLivre = Genre::findById($livre->getIdgenre());
+        include("vues/infoLivre.php");
         break;
-    case 'listePerso':
+    case 'afficherlistePerso':
         # code...
         break;
 }

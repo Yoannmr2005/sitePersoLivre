@@ -169,7 +169,7 @@ class Livre
     /**
      * Get the value of idgenre
      */
-    public function getIdgenre()
+    public function getIdgenre() : int
     {
         return $this->idgenre;
     }
@@ -215,16 +215,16 @@ class Livre
     {
         $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre";
         $param = [];
-        $query = MonPdo::dbRun($sql,$param);
-        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Livre');
+        $query = MonPdo::dbRun($sql, $param);
+        return $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
     }
 
     public static function find5mostView()
     {
         $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre ORDER BY `vente` DESC LIMIT 5";
         $param = [];
-        $query = MonPdo::dbRun($sql,$param);
-        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Livre');
+        $query = MonPdo::dbRun($sql, $param);
+        return $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
     }
 
     /**
@@ -233,12 +233,14 @@ class Livre
      * @param integer $id
      * @return Livre
      */
-    public static function findById(int $id) : array
-    { 
+    public static function findById(int $id)
+    {
         $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre WHERE idlivre = ?;";
         $param = [$id];
-        $query = MonPdo::dbRun($sql,$param);
-        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Livre');
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
+        return $statement->fetch();
     }
 
     /**
@@ -251,7 +253,7 @@ class Livre
     {
         $sql = "INSERT INTO livre (`nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage()];
-        $query = MonPdo::dbRun($sql,$param);
+        $query = MonPdo::dbRun($sql, $param);
         return $query;
     }
 
@@ -265,7 +267,7 @@ class Livre
     {
         $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?, `idgenre`= ?, `image`= ? WHERE idlivre = ?)";
         $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getIdlivre()];
-        $query = MonPdo::dbRun($sql,$param);
+        $query = MonPdo::dbRun($sql, $param);
         return $query;
     }
 
@@ -275,11 +277,28 @@ class Livre
      * @param Livre $livre
      * @return integer
      */
-    public static function delete(Livre $livre): int 
+    public static function delete(Livre $livre): int
     {
         $sql = "DELETE FROM livre WHERE idlivre = ?)";
         $param = [$livre->getIdlivre()];
-        $query = MonPdo::dbRun($sql,$param);
+        $query = MonPdo::dbRun($sql, $param);
         return $query;
+    }
+
+    /**
+     * fonction qui change le format du nombre de vente
+     *
+     * @param [int] $data
+     * @return string
+     */
+    public static function ChangeNumberFormat($data)
+    {
+        if ($data >= 1000000000) {
+            return "<p>" . number_format($data, 0, ' ', ' ') . " milliards</p>";
+        } elseif ($data >= 1000000) {
+            return "<p>" . number_format($data, 0, ' ', ' ') . " millions</p>";
+        } elseif ($data < 1000000) {
+            return "<p>" . number_format($data, 0, ' ', ' ') . " milliers</p>";
+        }
     }
 }

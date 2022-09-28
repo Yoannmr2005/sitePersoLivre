@@ -7,10 +7,10 @@
         foreach ($liste as $livre) {
         ?>
             <div class="p-3 col border">
-                <img src="img/<?= $livre->getImage() ?>" alt="">
+                <img src="img/<?= $livre->getImage() ?>" alt="image du lirve">
                 <br>
                 <p><?= $livre->getNom() ?></p>
-                <a href="controllers/livreControlleur.php?uc=liste&action=livre" class="link-info text-decoration-none">Plus d'informations</a>
+                <a href="index.php?uc=liste&action=livre&id=<?= $livre->getIdlivre() ?>" class="link-info text-decoration-none">Plus d'informations</a>
             </div>
         <?php
             $nb++;

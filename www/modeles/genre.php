@@ -26,7 +26,7 @@ class Genre {
     /**
      * Get the value of genre
      */ 
-    public function getGenre()
+    public function getGenre() : string
     {
         return $this->genre;
     }
@@ -60,14 +60,16 @@ class Genre {
      * Trouve un genre par son id
      *
      * @param integer $id
-     * @return Genre
+     * @return array
      */
-    public static function findById(int $id): Genre
+    public static function findById(int $id)
     {
         $sql = "SELECT `idgenre`, `genre` FROM genre WHERE idgenre = ?";
         $param = [$id];
-        $query = MonPdo::dbRun($sql,$param);
-        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Genre');
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
+        return $statement->fetch();
     }
 
     /**

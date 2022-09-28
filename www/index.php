@@ -6,15 +6,16 @@
  * Page : Controlleur principal
  */
 ?>
-<?php session_start(); ?>
-<?php include("session.php"); ?>
 <?php 
+session_start();
+include("session.php");
 include("vues/header.php"); 
 include("modeles/Livre.php");
+include("modeles/Genre.php");
+include("modeles/Liste.php");
+include("modeles/User.php");
 include("modeles/monPdo.php");
-?>
 
-<?php
 // Récupère les paramètres GET
 $getUc = filter_input(INPUT_GET,"uc",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 // Si l'url est vide, on met accueil
@@ -37,10 +38,8 @@ switch ($uc) {
         require_once('vues/admin.php');
         break;
     case 'listePerso':
-        require_once('controllers/livreControlleur.php');
+        require_once('controllers/listeControlleur.php');
         break;   
 }
 
-?>
-
-<?php include("vues/footer.php"); ?>
+include("vues/footer.php"); ?>
