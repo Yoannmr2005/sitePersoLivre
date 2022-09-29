@@ -5,7 +5,7 @@
     <br>
     <form method="POST">
       <div class="form-floating">
-        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+        <input type="text" class="form-control" id="nom" name="nom" value="<?= $nom ?>" placeholder="Nom">
         <label for="floatingInput">Nom</label>
       </div>
       <div class="form-floating">
