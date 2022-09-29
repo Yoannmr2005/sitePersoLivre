@@ -16,5 +16,7 @@
       </div>
       <button class="w-100 btn btn-lg btn-primary" name="connexion" value="connexion" type="submit">Se connecter</button>
     </form>
+    <br>
+    Vous n'êtes pas inscrit ? <a href="index.php?uc=connect&action=inscription" class="link-primary">S'inscrire</a>
   </div>
 </main>

@@ -158,11 +158,11 @@ class User
      * Permet d'ajouter un utilisateur
      *
      * @param User $user
-     * @return integer
+     * @return void
      */
-    public static function add(User $user): int
+    public static function add(User $user)
     {
-        $sql = "INSERT INTO genre (`nom`, `email`, `mdp`, `role`) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO utilisateur (`nom`, `email`, `mdp`, `role`) VALUES (?, ?, ?, ?)";
         $param = [$user->getNom(), $user->getEmail(), $user->getMdp(), $user->getRole()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;
@@ -176,7 +176,7 @@ class User
      */
     public static function update(User $user): int
     {
-        $sql = "UPDATE genre SET `nom` = ?, `email` = ?, `mdp` = ?, `role` = ? WHERE idutilisateur = ?)";
+        $sql = "UPDATE genre SET `nom` = ?, `email` = ?, `mdp` = ?, `role` = ? WHERE idutilisateur = ?";
         $param = [$user->getNom(), $user->getEmail(), $user->getMdp(), $user->getRole(), $user->getIdutilisateur()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;
@@ -228,5 +228,39 @@ class User
         session_destroy();
         header("location: index.php");
         exit;
+    }
+
+    /**
+     * Retourne true si le nom est déjà utilisé par un autre utilisateur, sinon false
+     *
+     * @param string $nom
+     * @return bool
+     */
+    public static function NameAlreadyExists($nom)
+    {
+        $dataUser =User::findAll();
+        foreach ($dataUser as $user) {
+            if ($user->nom == $nom) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Retourne true si l'e-mail est déjà utilisé par un autre utilisateur, sinon false
+     *
+     * @param string $email
+     * @return bool
+     */
+    public static function EmailAlreadyExists($email)
+    {
+        $dataUser =User::findAll();
+        foreach ($dataUser as $user) {
+            if ($user->email == $email) {
+                return true;
+            }
+        }
+        return false;
     }
 }

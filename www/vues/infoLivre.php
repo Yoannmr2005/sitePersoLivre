@@ -5,9 +5,15 @@
             <img src="img/<?= $livre->getImage() ?>" alt="image du livre" style="width: 250px; height: 350px;">
             <br>
             <br>
-            <button type="button" class="btn btn-success">
-                <a href="index.php?uc=listePerso&action=ajouter&id=<?= $livre->getIdlivre() ?>" class="link-dark text-decoration-none">Ajouter dans la liste personnelle</a>
-            </button>
+            <?php
+            if ($_SESSION["compte"]["utilisateur"] == 1) {
+            ?>
+                <button type="button" class="btn btn-success">
+                    <a href="index.php?uc=listePerso&action=ajouter&id=<?= $livre->getIdlivre() ?>" class="link-dark text-decoration-none">Ajouter dans la liste personnelle</a>
+                </button>
+            <?php
+            }
+            ?>
         </div>
         <div class="p-3 col">
             <h3 class="text-secondary">Auteur :</h3>

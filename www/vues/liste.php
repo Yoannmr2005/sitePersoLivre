@@ -7,7 +7,7 @@
         foreach ($liste as $livre) {
         ?>
             <div class="p-3 col border">
-                <img src="img/<?= $livre->getImage() ?>" alt="image du lirve">
+                <img src="img/<?= $livre->getImage() ?>" alt="image du livre">
                 <br>
                 <p><?= $livre->getNom() ?></p>
                 <a href="index.php?uc=liste&action=livre&id=<?= $livre->getIdlivre() ?>" class="link-info text-decoration-none">Plus d'informations</a>
