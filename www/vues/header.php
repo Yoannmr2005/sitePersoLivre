@@ -48,7 +48,7 @@
                         <?php
                         if (isset($_SESSION["idutilisateur"])) {
                         ?>
-                            <li><a href="index.php?uc=compte&id=<?= $_SESSION["idutilisateur"] ?>" class="nav-link px-2 text-white">Gérer mon compte</a></li>
+                            <li><a href="index.php?uc=compte" class="nav-link px-2 text-white">Gérer mon compte</a></li>
                     <?php
                         }
                     }
