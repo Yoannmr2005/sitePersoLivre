@@ -148,8 +148,10 @@ class User
     {
         $sql = "SELECT `idutilisateur`, `nom`, `email`, `mdp`, `role` FROM utilisateur WHERE idutilisateur = ?";
         $param = [$id];
-        $query = MonPdo::dbRun($sql, $param);
-        return $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'User');
+        return $statement->fetch();
     }
 
     /**
@@ -199,7 +201,7 @@ class User
      *
      * @param string $nom
      * @param string $mdp
-     * @return void
+     * @return int
      */
     public static function VerifyConnect($nom, $mdp)
     {

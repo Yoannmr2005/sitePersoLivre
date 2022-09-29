@@ -13,14 +13,23 @@ switch ($action) {
         $connexion = filter_input(INPUT_POST, "connexion", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ($connexion == "connexion") {
             if ($mdp != "" && $nom != "") {
-                $isConnected = User::VerifyConnect($nom, $mdp);
-                if ($isConnected != "") {
-                    $_SESSION["idutilisateur"] = $isConnected;
-                    $_SESSION["compte"]["utilisateur"] = 1;
-                    $_SESSION["compte"]["admin"] = 0;
+                // Vérifie si l'utilisateur existe et récupère l'id
+                $iduser = User::VerifyConnect($nom, $mdp);
+                if ($iduser != "") {
+                    // Stocke l'id dans la session
+                    $_SESSION["idutilisateur"] = $iduser;
+                    // Permet de récupérer les données de l'utilisateur connecté, utile pour obtenir le role et le stocké dans la session
+                    $userConnected = User::findById($iduser);
+                    if ($userConnected->getRole() == "utilisateur") {
+                        $_SESSION["compte"]["utilisateur"] = 1;
+                        $_SESSION["compte"]["admin"] = 0;
+                    }else {
+                        $_SESSION["compte"]["utilisateur"] = 0;
+                        $_SESSION["compte"]["admin"] = 1;
+                    }
                     header("location: index.php");
                     exit;
-                }else {
+                } else {
                     $erreurConnexion = "Erreur de nom ou de mot de passe";
                 }
             } else {
