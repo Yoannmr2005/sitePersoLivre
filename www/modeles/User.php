@@ -46,6 +46,20 @@ class User
     }
 
     /**
+     * Set id de l'utilisateur
+     *
+     * @param  int  $idutilisateur  id de l'utilisateur
+     *
+     * @return  self
+     */
+    public function setIdutilisateur(int $idutilisateur)
+    {
+        $this->idutilisateur = $idutilisateur;
+
+        return $this;
+    }
+    
+    /**
      * Get the value of nom
      */
     public function getNom()
@@ -172,11 +186,11 @@ class User
      * Permet de modifier un utilisateur
      *
      * @param User $user
-     * @return integer
+     * @return object
      */
-    public static function update(User $user): int
+    public static function update(User $user)
     {
-        $sql = "UPDATE genre SET `nom` = ?, `email` = ?, `mdp` = ?, `role` = ? WHERE idutilisateur = ?";
+        $sql = "UPDATE utilisateur SET `nom` = ?, `email` = ?, `mdp` = ?, `role` = ? WHERE idutilisateur = ?";
         $param = [$user->getNom(), $user->getEmail(), $user->getMdp(), $user->getRole(), $user->getIdutilisateur()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;
@@ -238,7 +252,7 @@ class User
      */
     public static function NameAlreadyExists($nom)
     {
-        $dataUser =User::findAll();
+        $dataUser = User::findAll();
         foreach ($dataUser as $user) {
             if ($user->nom == $nom) {
                 return true;
@@ -255,7 +269,7 @@ class User
      */
     public static function EmailAlreadyExists($email)
     {
-        $dataUser =User::findAll();
+        $dataUser = User::findAll();
         foreach ($dataUser as $user) {
             if ($user->email == $email) {
                 return true;
