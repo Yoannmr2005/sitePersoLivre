@@ -31,8 +31,8 @@ switch ($uc) {
     case 'liste':
         require_once('controllers/livreControlleur.php');
         break;
-    case 'admin':
-        require_once('vues/admin.php');
+    case 'compte':
+        require_once('controllers/compteControlleur.php');
         break;
     case 'listePerso':
         require_once('controllers/listeControlleur.php');
