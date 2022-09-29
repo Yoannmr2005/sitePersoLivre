@@ -121,12 +121,12 @@ class Liste {
      * Permet de supprimer un livre
      *
      * @param Liste $liste
-     * @return integer
+     * @return void
      */
-    public static function delete(Liste $liste): int 
+    public static function delete(Liste $liste) 
     {
-        $sql = "DELETE FROM livre WHERE idlivre = ?)";
-        $param = [$liste->getIdlivre()];
+        $sql = "DELETE FROM liste WHERE idlivre = ? AND idutilisateur = ?";
+        $param = [$liste->getIdlivre(), $liste->getIdutilisateur()];
         $query = MonPdo::dbRun($sql,$param);
         return $query;
     }

@@ -26,6 +26,12 @@ switch ($action) {
         }
         break;
     case 'supprimer':
-        # code...
-        break;
+        // Filtre le GET
+        $idlivre = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+        $delete = new Liste();
+        $delete->setIdlivre($idlivre);
+        $delete->setIdutilisateur($_SESSION["idutilisateur"]);
+        Liste::delete($delete);
+        header("location: index.php?uc=listePerso&action=listePerso");
+        exit;
 }

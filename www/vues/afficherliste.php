@@ -4,6 +4,11 @@
         <?php
         $nb = 0;
         $limit = 5;
+        if ($liste == []) {
+        ?>
+            <p class='text-danger h2'>Il n'y a aucun livre</p>
+        <?php
+        }
         foreach ($liste as $livre) {
         ?>
             <div class="p-3 col border">
@@ -11,17 +16,24 @@
                 <br>
                 <p><?= $livre->getNom() ?></p>
                 <a href="index.php?uc=liste&action=livre&id=<?= $livre->getIdlivre() ?>" class="link-info text-decoration-none">Plus d'informations</a>
+                <?php
+                if ($uc == "listePerso") {
+                ?>
+                    <br><a href="index.php?uc=listePerso&action=supprimer&id=<?= $livre->getIdlivre() ?>" class="link-danger text-decoration-none">Supprimer de la liste</a>
+                <?php
+                }
+                ?>
             </div>
-        <?php
+            <?php
             $nb++;
             if ($nb == $limit) {
-                ?>
-                </div>
-                <div class="row">
-                <?php
+            ?>
+    </div>
+    <div class="row">
+<?php
                 $limit += 5;
             }
         }
-        ?>
+?>
     </div>
 </div>

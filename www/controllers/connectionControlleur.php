@@ -64,7 +64,7 @@ switch ($action) {
                         $addUser->setRole("utilisateur");
                         // Ajoute l'utilisateur
                         User::add($addUser);
-                        header("location: index.php");
+                        header("location: index.php?uc=connect");
                         exit;
                     }else {
                         $erreurInscription = "L'e-mail est déjà utilisée par un autre utilisateur";
