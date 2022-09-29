@@ -56,17 +56,51 @@ class Liste {
     }
 
     /**
-     * Trouve une liste par un id utilisateur id
+     * Trouve toutes les listes personnelles du site
+     *
+     * @return object
+     */
+    public static function findAll()
+    {
+        $sql = "SELECT `idutilisateur`, `idlivre` FROM liste";
+        $param = [];
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Liste');
+        return $statement->fetchAll();
+    }
+
+    /**
+     * Trouve une liste par un id utilisateur
      *
      * @param integer $id
      * @return Liste
      */
-    public static function findById(int $id): Liste
+    public static function findById(int $id)
     {
-        $sql = "SELECT `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre JOIN liste ON (livre.idlivre = liste.idlivre) WHERE liste.idutilisateur = ?";
+        $sql = "SELECT `idlivre`,`idutilisateur` FROM liste WHERE liste.idutilisateur = ?";
         $param = [$id];
-        $query = MonPdo::dbRun($sql,$param);
-        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Liste');
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Liste');
+        return $statement->fetchAll();
+    }
+
+    /**
+     * fonction qui permet de trouver un livre dans la liste
+     *
+     * @param integer $idutilisateur
+     * @param integer $idlivre
+     * @return object
+     */
+    public static function FindOneBookInListe(int $idutilisateur, int $idlivre)
+    {
+        $sql = "SELECT `idlivre`,`idutilisateur` FROM liste WHERE idutilisateur = ? AND idlivre = ?";
+        $param = [$idutilisateur, $idlivre];
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Liste');
+        return $statement->fetch();
     }
 
     /**
@@ -75,9 +109,9 @@ class Liste {
      * @param Liste $liste
      * @return integer (retourne 1 si réussi, sinon 0)
      */
-    public static function add(Liste $liste): int
+    public static function add(Liste $liste)
     {
-        $sql = "INSERT INTO liste (`idlivre`, `idutilisateur` VALUES (?, ?)";
+        $sql = "INSERT INTO liste (`idlivre`, `idutilisateur`) VALUES (?, ?)";
         $param = [$liste->getIdlivre(), $liste->getIdutilisateur()];
         $query = MonPdo::dbRun($sql,$param);
         return $query;

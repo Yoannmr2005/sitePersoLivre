@@ -244,6 +244,22 @@ class Livre
     }
 
     /**
+     * Trouve les livres de l'utilisateur connecté
+     *
+     * @param [type] $idutilisateur
+     * @return void
+     */
+    public static function findAllLivreInListe($idutilisateur)
+    {
+        $sql = "SELECT `livre`.`idlivre`,`image`,`nom` FROM livre JOIN liste ON (`livre`.`idlivre` = `liste`.`idlivre`) WHERE liste.idutilisateur = ?";
+        $param = [$idutilisateur];
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
+        return $statement->fetchAll();
+    }
+
+    /**
      * Permet d'ajouter un livre
      *
      * @param Livre $livre

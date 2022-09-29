@@ -13,6 +13,10 @@
                 </button>
             <?php
             }
+            if (isset($_SESSION["msgLivreDejaDansListe"]) && $_SESSION["msgLivreDejaDansListe"] != "") {
+                echo $_SESSION['msgLivreDejaDansListe'];
+                $_SESSION['msgLivreDejaDansListe'] = "";
+            }
             ?>
         </div>
         <div class="p-3 col">

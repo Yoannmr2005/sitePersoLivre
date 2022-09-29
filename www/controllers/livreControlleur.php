@@ -9,7 +9,7 @@ switch ($action) {
     case 'liste':
         $liste = new Livre();
         $liste = Livre::findAll();
-        include("vues/liste.php");
+        include("vues/afficherliste.php");
         break;
     case 'livre':
         $id = filter_input(INPUT_GET,"id",FILTER_VALIDATE_INT);
