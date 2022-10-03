@@ -67,3 +67,23 @@ Après la pause de l'après-midi, j'ai fait la page pour gérer le compte et la 
 ### Bilan
 
 Aujourd'hui, j'ai été productif malgré les problèmes et les erreurs mais je n'ai pas réussi à finir le CRUD du compte puisqu'il me reste la suppression.
+
+## Jour 4 : Lundi 03 Octobre
+
+### Objectif
+
+- Ajout de la suppression
+- Ajout page admin pour gerer les livres et les genres
+- Liste des genres et listes des livres
+- Modification livre
+
+### Déroulement
+
+Aujourd'hui, j'ai continué le projet. Je n'ai pas eu de problème jusqu'à ce que je modifie un livre.
+En effet, j'ai une erreur de droit qui fait que je ne peux pas supprimer l'image pour mettre la nouvelle.
+J'ai chercher coment faire sur internet et j'ai regardé les droits des dossier (chmod) et les droits de l'utilisateur de la DB mais sans succès.
+Au bout d'une heure et demi, j'ai décidé de passer à autre chose et de faire la liste et la modification de genre.
+
+### Bilan
+
+Bonne journée malgré un bug non-résolu qui m'a ralenti dans l'avancement du projet

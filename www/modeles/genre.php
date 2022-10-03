@@ -1,5 +1,6 @@
 <?php
-class Genre {
+class Genre
+{
 
     /**
      * Id du genre
@@ -17,16 +18,30 @@ class Genre {
 
     /**
      * Get the value of idgenre
-     */ 
+     */
     public function getIdgenre()
     {
         return $this->idgenre;
     }
 
     /**
-     * Get the value of genre
+     * Set id du genre
+     *
+     * @param  int  $idgenre  Id du genre
+     *
+     * @return  self
      */ 
-    public function getGenre() : string
+    public function setIdgenre(int $idgenre)
+    {
+        $this->idgenre = $idgenre;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of genre
+     */
+    public function getGenre(): string
     {
         return $this->genre;
     }
@@ -35,7 +50,7 @@ class Genre {
      * Set the value of genre
      *
      * @return  self
-     */ 
+     */
     public function setGenre($genre)
     {
         $this->genre = $genre;
@@ -52,8 +67,8 @@ class Genre {
     {
         $sql = "SELECT `idgenre`, `genre` FROM genre";
         $param = [];
-        $query = MonPdo::dbRun($sql,$param);
-        return $query->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE,'Genre');
+        $query = MonPdo::dbRun($sql, $param);
+        return $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Genre');
     }
 
     /**
@@ -82,7 +97,7 @@ class Genre {
     {
         $sql = "INSERT INTO genre (`genre`) VALUES (?)";
         $param = [$genre->getGenre()];
-        $query = MonPdo::dbRun($sql,$param);
+        $query = MonPdo::dbRun($sql, $param);
         return $query;
     }
 
@@ -90,13 +105,13 @@ class Genre {
      * Permet de modifier un genre
      *
      * @param Genre $genre
-     * @return integer
+     * @return object
      */
-    public static function update(Genre $genre): int
+    public static function update(Genre $genre)
     {
-        $sql = "UPDATE genre SET `genre` = ? WHERE idgenre = ?)";
+        $sql = "UPDATE genre SET `genre` = ? WHERE idgenre = ?";
         $param = [$genre->getGenre(), $genre->getIdgenre()];
-        $query = MonPdo::dbRun($sql,$param);
+        $query = MonPdo::dbRun($sql, $param);
         return $query;
     }
 
@@ -104,13 +119,32 @@ class Genre {
      * Supprimer un genre
      *
      * @param Genre $genre
-     * @return integer
+     * @return object
      */
-    public static function delete(Genre $genre): int 
+    public static function delete(Genre $genre)
     {
-        $sql = "DELETE FROM genre WHERE idgenre = ?)";
+        $sql = "DELETE FROM genre WHERE idgenre = ?";
         $param = [$genre->getIdgenre()];
-        $query = MonPdo::dbRun($sql,$param);
+        $query = MonPdo::dbRun($sql, $param);
         return $query;
+    }
+
+
+    /**
+     * fonction qui créer un select des genres
+     *
+     * @return string
+     */
+    public static function CreateSelectFromGenre()
+    {
+        $sql = "SELECT idgenre, genre FROM genre";
+        $query = MonPDO::dbRun($sql, []);
+        $dataGenre = $query->fetchAll(PDO::FETCH_KEY_PAIR);
+        $output = "<select name='genre' class='form-control'>";
+        foreach ($dataGenre as $key => $value) {
+            $output .= "<option value='$key'>$value</option>";
+        }
+        $output .= "</select>";
+        return $output;
     }
 }
