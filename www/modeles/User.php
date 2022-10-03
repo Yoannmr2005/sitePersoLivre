@@ -200,11 +200,11 @@ class User
      * Permet de supprimer un utilisateur
      *
      * @param User $user
-     * @return integer
+     * @return object
      */
-    public static function delete(User $user): int
+    public static function delete(User $user)
     {
-        $sql = "DELETE FROM utilisateur WHERE idutilisateur = ?)";
+        $sql = "DELETE FROM utilisateur WHERE idutilisateur = ?";
         $param = [$user->getIdutilisateur()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;

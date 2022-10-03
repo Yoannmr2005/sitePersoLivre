@@ -5,6 +5,11 @@ switch ($action) {
     case '':
         $infoCompte = new User();
         $infoCompte = User::findById($_SESSION["idutilisateur"]);
+        $delete = filter_input(INPUT_POST,"supprimer",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ($delete == "supprimer") {
+            header("location: index.php?uc=compte&action=supprimer");
+            exit;
+        }
         include("vues/compte/tableauCompte.php");
         break;
     case 'modifier':
@@ -65,6 +70,11 @@ switch ($action) {
         echo "<br><p class='text-danger h4 text-center'>${erreurFormModif}</p>";
         break;
     case 'supprimer':
-        # code...
+        $deleteUser = new User();
+        $deleteUser->setIdutilisateur($_SESSION["idutilisateur"]);
+        User::delete($deleteUser);
+        User::Disconnect();
+        header("location: index.php");
+        exit;
         break;
 }
