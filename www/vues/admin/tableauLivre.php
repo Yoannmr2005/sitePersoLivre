@@ -28,7 +28,7 @@ include("vues/compte/modal.html")
                     ?>
                     </td>
                     <td>
-                        <a href="index.php?uc=admin&action=modifierLivre">
+                        <a href="index.php?uc=admin&action=modifierLivre&id=<?= $livre->getIdlivre() ?>">
                             <img src="img/crayon.png" alt="image de modification">
                         </a>
 

@@ -213,12 +213,17 @@ class Livre
      */
     public static function findAll(): array
     {
-        $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre";
+        $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre ORDER BY `idgenre`, `auteur`";
         $param = [];
         $query = MonPdo::dbRun($sql, $param);
         return $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
     }
 
+    /**
+     * Trouve les 5 livres avec le plus de vente
+     *
+     * @return Livre
+     */
     public static function find5mostView()
     {
         $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image` FROM livre ORDER BY `vente` DESC LIMIT 5";
@@ -281,7 +286,7 @@ class Livre
      */
     public static function update(Livre $livre): int
     {
-        $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?, `idgenre`= ?, `image`= ? WHERE idlivre = ?)";
+        $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?, `image`= ? WHERE idlivre = ?";
         $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getIdlivre()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;

@@ -38,7 +38,7 @@ switch ($uc) {
         require_once('controllers/listeControlleur.php');
         break;
     case 'admin':
-        require_once('controllers/admin/gestionAdmin.php');
+        require_once('controllers/gestionAdmin.php');
         break;
 }
 
