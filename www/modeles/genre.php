@@ -60,7 +60,7 @@ class Genre {
      * Trouve un genre par son id
      *
      * @param integer $id
-     * @return array
+     * @return object
      */
     public static function findById(int $id)
     {

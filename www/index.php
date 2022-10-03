@@ -36,7 +36,11 @@ switch ($uc) {
         break;
     case 'listePerso':
         require_once('controllers/listeControlleur.php');
-        break;   
+        break;
+    case 'admin':
+        require_once('controllers/admin/gestionAdmin.php');
+        break;
 }
 
-include("vues/footer.php"); ?>
+include("vues/footer.php"); 
+?>

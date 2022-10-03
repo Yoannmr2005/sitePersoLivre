@@ -1,4 +1,4 @@
-<?=
+<?php
 include("vues/compte/modal.html")
 ?>
 <div class="container text-center">
@@ -26,7 +26,7 @@ include("vues/compte/modal.html")
                     <div id="id01" class="modal">
                         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
                         <form class="modal-content" method="POST" action="">
-                            <div class="container">
+                            <div class="containerModal">
                                 <h1>Supprimer compte</h1>
                                 <p>Es-tu sûr de vouloir supprimer ton compte ?</p>
 
