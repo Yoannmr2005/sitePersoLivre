@@ -321,11 +321,11 @@ class Livre
     public static function ChangeNumberFormat($data)
     {
         if ($data >= 1000000000) {
-            return "<p>" . number_format($data, 0, ' ', ' ') . " milliards</p>";
+            return "<p>" . number_format($data, 0, ' ', ' ') . " milliards de ventes</p>";
         } elseif ($data >= 1000000) {
-            return "<p>" . number_format($data, 0, ' ', ' ') . " millions</p>";
+            return "<p>" . number_format($data, 0, ' ', ' ') . " millions de ventes</p>";
         } elseif ($data < 1000000) {
-            return "<p>" . number_format($data, 0, ' ', ' ') . " milliers</p>";
+            return "<p>" . number_format($data, 0, ' ', ' ') . " milliers de ventes</p>";
         }
     }
 

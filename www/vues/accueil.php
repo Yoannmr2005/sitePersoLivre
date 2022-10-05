@@ -4,6 +4,11 @@
   Version : 3.0
   Page : Page de vue d'accueil du site'
 -->
+<style>
+    div>p {
+        color: red;
+    }
+</style>
 <div class="container text-center">
     <h1>Site de livre</h1>
     <br>
@@ -16,6 +21,8 @@
                 <img src="img/<?= $livre->getImage()?>" alt="">
                 <br>
                 <?= $livre->getNom() ?>
+                <?= Livre::ChangeNumberFormat($livre->getVente())?>
+
             </div>
         <?php
         }

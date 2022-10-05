@@ -34,7 +34,7 @@ Il y a également un compte admin pour gérer (modifier, supprimer et ajouter) d
 
 Le client a le droit de 
 - Afficher une page d'accueil avec
-  - Une liste des 7 livres les plus connus
+  - Une liste des 5 livres les plus connus
   - une icône pour se connecter / se déconnecter
   - une icône pour accéder à la liste de tous les livres du site
 - Afficher une page de connexion depuis l’icône de la page d’accueil
@@ -42,8 +42,8 @@ Le client a le droit de
     - Son nom lui est demandé
     - Son mdp lui est demandé
   - Si le client n’a pas encore de compte, il peut s’en créer un en allant dans la page inscription depuis la page connexion
-    - Un nom lui est demandé (obligatoire)
-    - Un email (obligatoire)
+    - Un nom lui est demandé
+    - Un email 
     - Son mot de passe
   - Contrainte pour l'inscription :
     - Le mot de passe doit être hasher et saler dans la base de données
