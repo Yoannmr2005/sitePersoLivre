@@ -3,6 +3,11 @@ include("vues/compte/modal.html")
 ?>
 <div class="container text-center">
     <h1>Genres</h1>
+    <button type="button" class="btn btn-success btn-rounded" style="float: right;">
+        <a href="index.php?uc=admin&action=ajouterGenre" class="text-decoration-none text-white" >Ajouter un genre</a>
+    </button>
+    <br>
+    <br>
     <div class="row">
         <table class="table table-success table-striped">
             <tr>
@@ -22,12 +27,12 @@ include("vues/compte/modal.html")
                             <img src="img/crayon.png" alt="image de modification">
                         </a>
 
-                        <button onclick="document.getElementById('id<?= $genre->getIdgenre()?>').style.display='block'" class="delete">
+                        <button onclick="document.getElementById('id<?= $genre->getIdgenre() ?>').style.display='block'" class="delete">
                             <img src="img/suppression.png" alt="image de suppression">
                         </button>
 
-                        <div id="id<?= $genre->getIdgenre()?>" class="modal">
-                            <span onclick="document.getElementById('id<?= $genre->getIdgenre()?>').style.display='none'" class="close" title="Close Modal">×</span>
+                        <div id="id<?= $genre->getIdgenre() ?>" class="modal">
+                            <span onclick="document.getElementById('id<?= $genre->getIdgenre() ?>').style.display='none'" class="close" title="Close Modal">×</span>
                             <form class="modal-content" method="POST" action="">
                                 <div class="containerModal">
                                     <h1>Supprimer Genre</h1>
@@ -35,9 +40,9 @@ include("vues/compte/modal.html")
                                     <p class="text-danger h4">ATTENTION ! Si le genre est utilisée par des livres, les livres liés seront supprimés</p>
                                     <div class="clearfix">
                                         <input type="hidden" name="idgenre" value="<?= $genre->getIdgenre() ?>">
-                                        <button type="submit" onclick="document.getElementById('id<?= $genre->getIdgenre()?>').style.display='none'" name="annuler" class="cancelbtn">Annuler</button>
-                                        <button type="submit" onclick="document.getElementById('id<?= $genre->getIdgenre()?>').style.display='none'" name="supprimer" value="supprimer" class="deletebtn">
-                                        <a href="index.php?uc=admin&action=supprimerGenre&id=<?= $genre->getIdgenre()?>" class="text-decoration-none text-black">Supprimer</a>    
+                                        <button type="submit" onclick="document.getElementById('id<?= $genre->getIdgenre() ?>').style.display='none'" name="annuler" class="cancelbtn">Annuler</button>
+                                        <button type="submit" onclick="document.getElementById('id<?= $genre->getIdgenre() ?>').style.display='none'" name="supprimer" value="supprimer" class="deletebtn">
+                                            <a href="index.php?uc=admin&action=supprimerGenre&id=<?= $genre->getIdgenre() ?>" class="text-decoration-none text-black">Supprimer</a>
                                         </button>
                                     </div>
                                 </div>

@@ -10,6 +10,9 @@ switch ($action) {
         $dataLivre = Livre::findAll();
         include("vues/admin/tableauLivre.php");
         break;
+    case 'ajouterLivre':
+        # code...
+        break;
     case 'modifierLivre':
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $modifierLivre = new Livre();
@@ -72,6 +75,32 @@ switch ($action) {
         $dataGenre = Genre::findAll();
         include("vues/admin/tableauGenre.php");
         break;
+    case 'ajouterGenre':
+        // Filtre des données
+        $nom = filter_input(INPUT_POST, "nomgenre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $btnAjouterGenre = filter_input(INPUT_POST, "ajouterGenre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // Message d'erreur
+        $erreurAjouterGenre = "";
+
+        if ($btnAjouterGenre == "ajouterGenre") {
+            if ($nom) {
+                if (Genre::GenreAlreadyExist($nom) == false) {
+                    // Ajoute un genre
+                    $ajouterGenre = new Genre();
+                    $ajouterGenre->setGenre($nom);
+                    Genre::add($ajouterGenre);
+                    header("location: index.php?uc=admin&action=listGenres");
+                    exit;
+                } else {
+                    $erreurAjouterGenre = "Le genre existe déjà";
+                }
+            } else {
+                $erreurAjouterGenre = "Il faut remplir le champ";
+            }
+        }
+        include("vues/admin/ajouterGenre.php");
+        echo "<br><p class='text-danger h4 text-center'>${erreurAjouterGenre}</p>";
+        break;
     case 'modifierGenre':
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $modifierGenre = new Genre();
@@ -90,16 +119,20 @@ switch ($action) {
                 Genre::update($modifGenre);
                 header("location: index.php?uc=admin&action=listGenres");
                 exit;
-            }else {
-                $erreurModifGenre = "Il faut choisir un genre.";
+            } else {
+                $erreurModifGenre = "Il faut écrire un genre.";
             }
         }
         include("vues/admin/modifierGenre.php");
+        echo "<br><p class='text-danger h4 text-center'>${erreurModifGenre}</p>";
         break;
     case 'supprimerGenre':
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $supprimerGenre = new Genre();
         $supprimerGenre->setIdgenre($id);
+        Livre::DeleteAllBookOfGenre($id);
         Genre::delete($supprimerGenre);
+        header("location: index.php?uc=admin&action=listGenres");
+        exit;
         break;
 }

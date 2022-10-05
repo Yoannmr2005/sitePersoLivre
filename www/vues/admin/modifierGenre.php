@@ -1,7 +1,7 @@
 <main class="form-signin">
     <div class="container w-50">
         <br>
-        <h1 class="h3 mb-3 fw-normal text-center">Se connecter</h1>
+        <h1 class="h3 mb-3 fw-normal text-center">Modifier un genre</h1>
         <br>
         <form method="POST" enctype="multipart/form-data">
             <div class="form-floating">

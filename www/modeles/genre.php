@@ -91,9 +91,9 @@ class Genre
      * Permet d'ajouter un genre
      *
      * @param Genre $genre
-     * @return integer
+     * @return object
      */
-    public static function add(Genre $genre): int
+    public static function add(Genre $genre)
     {
         $sql = "INSERT INTO genre (`genre`) VALUES (?)";
         $param = [$genre->getGenre()];
@@ -146,5 +146,20 @@ class Genre
         }
         $output .= "</select>";
         return $output;
+    }
+
+    public static function GenreAlreadyExist($genre)
+    {
+        $sql = "SELECT `idgenre`, `genre` FROM genre WHERE genre = ?";
+        $param = [$genre];
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Genre');
+        return $statement->fetch();
+        if ($statement == []) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

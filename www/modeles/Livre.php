@@ -322,4 +322,14 @@ class Livre
             return "<p>" . number_format($data, 0, ' ', ' ') . " milliers</p>";
         }
     }
+
+    public static function DeleteAllBookOfGenre($idgenre)
+    {
+        $sql = "DELETE FROM livre WHERE idgenre = ?";
+        $param = [$idgenre];
+        $statement = MonPdo::getInstance()->prepare($sql);
+        $statement->execute($param);
+        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
+        return $statement->fetchAll();
+    }
 }
