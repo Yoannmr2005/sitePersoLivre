@@ -10,8 +10,8 @@ class MonPdo
 
     private static $serveur = 'mysql:host=localhost';
     private static $bdd = 'dbname=dblivre';
-    private static $user = 'dbmonstres';
-    private static $mdp = 'MegaSecret';
+    private static $user = 'yoannmr';
+    private static $mdp = 'Super2022';
     private static $monPdo;
     private static $unPdo = null;
 
