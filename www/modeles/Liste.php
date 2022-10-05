@@ -113,7 +113,7 @@ class Liste {
      * Permet d'ajouter un livre
      *
      * @param Liste $liste
-     * @return integer (retourne 1 si réussi, sinon 0)
+     * @return object
      */
     public static function add(Liste $liste)
     {

@@ -284,6 +284,15 @@ class User
         return false;
     }
 
+    /**
+     * Vérifie les données d'inscription, si tout est ok ajoute un compte dans la DB
+     *
+     * @param string $nom
+     * @param string $email
+     * @param string $mdp
+     * @param string $role
+     * @return string
+     */
     public static function VerifyDataInscription($nom, $email, $mdp, $role)
     {
         $addUser = new User();
@@ -311,21 +320,41 @@ class User
         }
     }
 
+    /**
+     * Vérifie si un compte utilisateur est connecté
+     *
+     * @return boolean (true si connecté, sinon false)
+     */
     public static function isUserConnected()
     {
         return ($_SESSION["compte"]["utilisateur"] == 1) ? true : false ;
     }
 
+    /**
+     * Vérifie si un compte admin est connecté
+     *
+     * @return boolean (true si connecté, sinon false)
+     */
     public static function isAdminConnected()
     {
         return ($_SESSION["compte"]["admin"] == 1) ? true : false ;
     }
 
+    /**
+     * Vérifie si la personne n'est pas connecté
+     *
+     * @return boolean (true si non connecté, sinon false)
+     */
     public static function isNotConnected()
     {
         return ($_SESSION["compte"]["utilisateur"] == 0 && $_SESSION["compte"]["admin"] == 0) ? true : false ;
     }
 
+    /**
+     * Permet de rediriger vers l'index
+     *
+     * @return void
+     */
     public static function GoToIndex()
     {
         header("location: index.php");

@@ -40,6 +40,13 @@ class MonPdo
         return self::$unPdo;
     }
 
+    /**
+     * Fonction qui prepare et execute le sql avec PDO
+     *
+     * @param string $sql
+     * @param array $param
+     * @return object
+     */
     public static function dbRun($sql, $param = null)
     {
         $statement = MonPdo::getInstance()->prepare($sql);

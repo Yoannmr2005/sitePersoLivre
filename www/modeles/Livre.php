@@ -274,9 +274,9 @@ class Livre
      * Permet d'ajouter un livre
      *
      * @param Livre $livre
-     * @return integer (retourne 1 si réussi, sinon 0)
+     * @return object
      */
-    public static function add(Livre $livre): int
+    public static function add(Livre $livre)
     {
         $sql = "INSERT INTO livre (`nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage()];
@@ -288,9 +288,9 @@ class Livre
      * Permet de modifier un livre
      *
      * @param Livre $livre
-     * @return integer (retourne 1 si réussi, sinon 0)
+     * @return object
      */
-    public static function update(Livre $livre): int
+    public static function update(Livre $livre)
     {
         $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?, `image`= ? WHERE idlivre = ?";
         $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getIdlivre()];
@@ -302,9 +302,9 @@ class Livre
      * Permet de supprimer un livre
      *
      * @param Livre $livre
-     * @return integer
+     * @return object
      */
-    public static function delete(Livre $livre): int
+    public static function delete(Livre $livre)
     {
         $sql = "DELETE FROM livre WHERE idlivre = ?)";
         $param = [$livre->getIdlivre()];
@@ -329,6 +329,12 @@ class Livre
         }
     }
 
+    /**
+     * Supprime tous les livres d'un genre
+     *
+     * @param int $idgenre
+     * @return object
+     */
     public static function DeleteAllBookOfGenre($idgenre)
     {
         $sql = "DELETE FROM livre WHERE idgenre = ?";
