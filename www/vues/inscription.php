@@ -1,3 +1,9 @@
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue de l'inscription
+-->
 <main class="form-signin">
     <div class="container w-50 text-center">
         <br>

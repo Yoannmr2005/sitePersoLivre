@@ -1,3 +1,9 @@
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue d'accueil du site'
+-->
 <div class="container text-center">
     <h1>Site de livre</h1>
     <br>

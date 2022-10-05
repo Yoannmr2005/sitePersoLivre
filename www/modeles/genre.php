@@ -1,4 +1,10 @@
 <?php
+/**
+ * Auteur : Yoann Meier
+ * Site de livre
+ * Version : 3.0
+ * Page : class Genre
+ */
 class Genre
 {
 

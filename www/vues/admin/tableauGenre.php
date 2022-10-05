@@ -1,6 +1,12 @@
 <?php
 include("vues/compte/modal.html")
 ?>
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue qui affiche un tableau de tous les genres
+-->
 <div class="container text-center">
     <h1>Genres</h1>
     <button type="button" class="btn btn-success btn-rounded" style="float: right;">

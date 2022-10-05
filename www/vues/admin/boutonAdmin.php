@@ -1,3 +1,9 @@
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue de l'acceuil de la page admin
+-->
 <div class="d-grid gap-4">
     <h1 class="text-center">Gestion administrateur</h1>
     <div class="text-center">

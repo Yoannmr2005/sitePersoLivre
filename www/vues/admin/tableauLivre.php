@@ -1,6 +1,12 @@
 <?php
 include("vues/compte/modal.html")
 ?>
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue qui affiche un tableau de tous les livres
+-->
 <div class="container text-center">
     <h1>Livres</h1>
     <div class="row">

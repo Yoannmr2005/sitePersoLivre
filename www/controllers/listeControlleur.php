@@ -1,4 +1,10 @@
 <?php
+/**
+ * Auteur : Yoann Meier
+ * Site de livre
+ * Version : 3.0
+ * Page : controlleur de la liste perso (affichage, ajouter, supprimer)
+ */
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
     case 'listePerso':

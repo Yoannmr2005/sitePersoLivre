@@ -1,6 +1,12 @@
 <?php
 include("vues/compte/modal.html")
 ?>
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue qui affiche un tableau du compte connecté
+-->
 <div class="container text-center">
     <h1>Mon compte</h1>
     <div class="row">

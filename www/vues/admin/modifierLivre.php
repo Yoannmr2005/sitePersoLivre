@@ -1,3 +1,9 @@
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue pour modifier un livre
+-->
 <main class="form-signin">
     <div class="container w-50">
         <br>
@@ -30,11 +36,6 @@
                 <input type="number" class="form-control" id="vente" name="vente" value="<?= $modifierLivre->getVente() ?>" placeholder="Vente">
                 <label for="floatingInput">Vente</label>
             </div>
-            <!-- <div class="form-floating">
-                <?php // echo Genre::CreateSelectFromGenre() 
-                ?>
-                <label for="floatingInput">Genre</label>
-            </div> -->
             <button class="w-100 btn btn-lg btn-primary" name="modifier" value="modifier" type="submit">Modifier</button>
         </form>
         <br>

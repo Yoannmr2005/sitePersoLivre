@@ -1,6 +1,11 @@
 <?php
+/**
+ * Auteur : Yoann Meier
+ * Site de livre
+ * Version : 3.0
+ * Page : controlleur des pages liée au admin (page admin, ajout compte admin, CRUD livre, CRUD genre)
+ */
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
 switch ($action) {
     case '':
         // renvoie à l'accueil si le compte n'est pas admin

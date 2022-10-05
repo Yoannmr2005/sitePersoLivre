@@ -1,9 +1,9 @@
 <?php
-
 /**
- *	Classe d'acces aux donnees Utilise les services de la classe PDO
- *	Les attributs sont tous statiques, les 4 premiers pour la connexion
- *	$monPdo qui contiendra l'unique instance de la classe
+ * Auteur : Yoann Meier
+ * Site de livre
+ * Version : 3.0
+ * Page : class PDO
  */
 class MonPdo
 {

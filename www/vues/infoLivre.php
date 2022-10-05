@@ -1,3 +1,9 @@
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue des détails du livre
+-->
 <div class="container">
     <h1><?= $livre->getNom() ?></h1>
     <div class="row">

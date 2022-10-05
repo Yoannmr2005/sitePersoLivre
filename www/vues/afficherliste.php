@@ -1,3 +1,9 @@
+<!--
+  Auteur : Yoann Meier
+  Site de livre
+  Version : 3.0
+  Page : Page de vue qui affiche la liste personnelle
+-->
 <div class="container text-center">
     <h1>Liste des livres</h1>
     <div class="row">
