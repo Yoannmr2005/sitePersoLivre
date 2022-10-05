@@ -277,4 +277,31 @@ class User
         }
         return false;
     }
+
+    public static function VerifyDataInscription($nom, $email, $mdp, $role)
+    {
+        $addUser = new User();
+        if ($nom && $email && $mdp) {
+            if (User::NameAlreadyExists($nom) == false) {
+                if (User::EmailAlreadyExists($email) == false) {
+                    // Hash le mot de passe
+                    $hash = password_hash($mdp, PASSWORD_BCRYPT);
+                    // set les valeur des variables de la classe
+                    $addUser->setNom($nom);
+                    $addUser->setEmail($email);
+                    $addUser->setMdp($hash);
+                    $addUser->setRole($role);
+                    // Ajoute l'utilisateur
+                    User::add($addUser);
+                    return "ok";
+                }else {
+                    return "L'e-mail est déjà utilisée par un autre utilisateur";
+                }
+            }else {
+                return "Le nom est déjà utilisée par un autre utilisateur";
+            }
+        }else {
+            return "Il manque une donnée";
+        }
+    }
 }

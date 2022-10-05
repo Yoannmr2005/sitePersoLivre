@@ -52,34 +52,35 @@ switch ($action) {
         $mdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $inscrire = filter_input(INPUT_POST, "inscription", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ($inscrire == "inscription") {
-            if ($nom && $email && $mdp) {
-                if (User::NameAlreadyExists($nom) == false) {
-                    if (User::EmailAlreadyExists($email) == false) {
-                        // Hash le mot de passe
-                        $hash = password_hash($mdp, PASSWORD_BCRYPT);
-                        // set les valeur des variables de la classe
-                        $addUser->setNom($nom);
-                        $addUser->setEmail($email);
-                        $addUser->setMdp($hash);
-                        $addUser->setRole("utilisateur");
-                        // Ajoute l'utilisateur
-                        User::add($addUser);
-                        header("location: index.php?uc=connect");
-                        exit;
-                    }else {
-                        $erreurInscription = "L'e-mail est déjà utilisée par un autre utilisateur";
-                    }
-                }else {
-                    $erreurInscription = "Le nom est déjà utilisée par un autre utilisateur";
-                }
-            }else {
-                $erreurInscription = "Il manque une donnée";
-            }
+            $erreurInscription = User::VerifyDataInscription($nom, $email, $mdp, "utilisateur");
         }
         include("vues/inscription.php");
-        echo "<br><p class='text-danger h4 text-center'>${erreurInscription}</p>";
+        // Renvoie vers la page de connexion si l'inscription c'est bien déroulé, sinon écrit un message d'erreur
+        if ($erreurInscription == "ok") {
+            header("location: index.php?uc=connect");
+            exit;
+        }else {
+            echo "<br><p class='text-danger h4 text-center'>${erreurInscription}</p>";
+        }
         break;
-    case 'desinscription':
-        # code...
+    case 'ajoutAdmin':
+        // message d'erreur
+        $erreurInscriptionAdmin = "";
+        // Filtre des données
+        $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+        $mdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $inscrire = filter_input(INPUT_POST, "inscription", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ($inscrire == "inscription") {
+            $erreurInscriptionAdmin = User::VerifyDataInscription($nom, $email, $mdp, "admin");
+        }
+        include("vues/inscription.php");
+        // Renvoie vers la page de connexion si l'inscription c'est bien déroulé, sinon écrit un message d'erreur
+        if ($erreurInscriptionAdmin == "ok") {
+            header("location: index.php?uc=connect");
+            exit;
+        }else {
+            echo "<br><p class='text-danger h4 text-center'>${erreurInscriptionAdmin}</p>";
+        }
         break;
 }
