@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
@@ -71,6 +72,19 @@ class Livre
         return $this->idlivre;
     }
 
+    /**
+     * Set id du livre
+     *
+     * @param  int  $idlivre  id du livre
+     *
+     * @return  self
+     */
+    public function setIdlivre(int $idlivre)
+    {
+        $this->idlivre = $idlivre;
+
+        return $this;
+    }
 
     /**
      * Get the value of nom
@@ -175,7 +189,7 @@ class Livre
     /**
      * Get the value of idgenre
      */
-    public function getIdgenre() : int
+    public function getIdgenre(): int
     {
         return $this->idgenre;
     }
@@ -292,8 +306,8 @@ class Livre
      */
     public static function update(Livre $livre)
     {
-        $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?, `image`= ? WHERE idlivre = ?";
-        $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getIdlivre()];
+        $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?,`idgenre` = ?, `image`= ? WHERE idlivre = ?";
+        $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage(), $livre->getIdlivre()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;
     }

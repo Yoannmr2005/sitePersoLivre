@@ -36,8 +36,6 @@ switch ($action) {
             User::GoToIndex();
         }
 
-        /////////////////////////////////////////////////Bug liée à l'image/////////////////////////////////////////////////
-
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $modifierLivre = new Livre();
         $modifierLivre = Livre::findById($id);
@@ -59,7 +57,7 @@ switch ($action) {
                     if ($vente > 0) {
                         $target_dir = "img/";
                         $filename = $target_dir . $modifierLivre->getImage();
-                        chmod($filename, 0777);
+                        @chmod($filename, 0777);
                         if (unlink($filename)) {
                             $target_file = $target_dir . basename($_FILES["image"]["name"]);
                             if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
@@ -70,8 +68,12 @@ switch ($action) {
                                 $modification->setAnnee($annee);
                                 $modification->setVente($vente);
                                 $modification->setDescription($description);
+                                $modification->setIdgenre($modifierLivre->getIdgenre());
+                                $modification->setIdlivre($id);
                                 $modification->setImage(basename($_FILES["image"]["name"]));
                                 Livre::update($modification);
+                                header("location: index.php?uc=admin&action=listLivres");
+                                exit;
                             } else {
                                 $erreurModification = "Erreur lors de l'upload de la nouvelle image";
                             }
