@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
@@ -10,7 +11,7 @@ switch ($action) {
     case '':
         $infoCompte = new User();
         $infoCompte = User::findById($_SESSION["idutilisateur"]);
-        $delete = filter_input(INPUT_POST,"supprimer",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $delete = filter_input(INPUT_POST, "supprimer", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ($delete == "supprimer") {
             header("location: index.php?uc=compte&action=supprimer");
             exit;
@@ -18,9 +19,7 @@ switch ($action) {
         include("vues/compte/tableauCompte.php");
         break;
     case 'modifier':
-        $infoCompteModification = new User();
-        $infoCompteModification = User::findById($_SESSION["idutilisateur"]);
-        //
+        // Message d'erreur de modification du compte
         $erreurFormModif = "";
         // Filtre des données
         $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -30,45 +29,11 @@ switch ($action) {
         $modifier = filter_input(INPUT_POST, "modifier", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Si on comfirme
         if ($modifier == "modifier") {
-            // Vérifie si les champs obligatoires sont remplies
-            if ($nom && $email && $ancienMdp) {
-                // Vérifie si l'ancien mot de passe est correcte
-                if (password_verify($ancienMdp, $infoCompteModification->getMdp())) {
-                    // Modifier le nom et l'e-mail si le champs nouveau mdp est vide 
-                    if ($nouveauMdp != "") {
-                        // Verifie si le nouveau mot de passe est identique à l'ancien
-                        if ($ancienMdp != $nouveauMdp) {
-                            // Modifier le nom, l'e-mail et le mot de passe
-                            $modifierAvecMdp = new User();
-                            $modifierAvecMdp->setNom($nom);
-                            $modifierAvecMdp->setEmail($email);
-                            $modifierAvecMdp->setMdp(password_hash($nouveauMdp, PASSWORD_BCRYPT));
-                            $modifierAvecMdp->setRole("utilisateur");
-                            $modifierAvecMdp->setIdutilisateur($_SESSION["idutilisateur"]);
-                            User::update($modifierAvecMdp);
-                            header("location: index.php?uc=compte");
-                            exit;
-                        } else {
-                            $erreurFormModif = "Le nouveau mot de passe est identique à l'ancien";
-                        }
-                    } else {
-                        // Modifier le nom et l'e-mail
-                        $modifierSansMdp = new User();
-                        $modifierSansMdp->setNom($nom);
-                        $modifierSansMdp->setEmail($email);
-                        // Remet l'ancien mot de passe
-                        $modifierSansMdp->setMdp($infoCompteModification->getMdp());
-                        $modifierSansMdp->setRole("utilisateur");
-                        $modifierSansMdp->setIdutilisateur($_SESSION["idutilisateur"]);
-                        User::update($modifierSansMdp);
-                        header("location: index.php?uc=compte");
-                        exit;
-                    }
-                } else {
-                    $erreurFormModif = "L'ancien mot de passe est incorrect";
-                }
-            } else {
-                $erreurFormModif = "Il manque une ou plusieurs donnée(s)";
+            $erreurFormModif = User::VerifyDataModifCompte($nom, $email, $ancienMdp, $nouveauMdp);
+            // On redirige si la modification est ok
+            if ($erreurFormModif == "ok") {
+                header("location: index.php?uc=compte");
+                exit;
             }
         }
         include("vues/compte/formCompteModif.php");
@@ -79,7 +44,6 @@ switch ($action) {
         $deleteUser->setIdutilisateur($_SESSION["idutilisateur"]);
         User::delete($deleteUser);
         User::Disconnect();
-        header("location: index.php");
-        exit;
+        User::GoToIndex();
         break;
 }

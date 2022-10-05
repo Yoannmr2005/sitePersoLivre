@@ -35,6 +35,9 @@ switch ($action) {
         if (User::isUserConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
+
+        /////////////////////////////////////////////////Bug liée à l'image/////////////////////////////////////////////////
+
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $modifierLivre = new Livre();
         $modifierLivre = Livre::findById($id);

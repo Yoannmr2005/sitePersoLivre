@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
@@ -64,7 +65,7 @@ class User
 
         return $this;
     }
-    
+
     /**
      * Get the value of nom
      */
@@ -309,13 +310,92 @@ class User
                     // Ajoute l'utilisateur
                     User::add($addUser);
                     return "ok";
-                }else {
+                } else {
                     return "L'e-mail est déjà utilisée par un autre utilisateur";
                 }
-            }else {
+            } else {
                 return "Le nom est déjà utilisée par un autre utilisateur";
             }
-        }else {
+        } else {
+            return "Il manque une donnée";
+        }
+    }
+
+    /**
+     * Vérifie les informations du formulaire de modification des informations du compte
+     *
+     * @param [type] $nom
+     * @param [type] $email
+     * @param [type] $ancienMdp
+     * @param [type] $nouveauMdp
+     * @return void
+     */
+    public static function VerifyDataModifCompte($nom, $email, $ancienMdp, $nouveauMdp)
+    {
+        $infoCompteModification = new User();
+        $infoCompteModification = User::findById($_SESSION["idutilisateur"]);
+        // Vérifie si les champs obligatoires sont remplies
+        if ($nom && $email && $ancienMdp) {
+            // Vérifie si l'ancien mot de passe est correcte
+            if (password_verify($ancienMdp, $infoCompteModification->getMdp())) {
+                // Modifier le nom et l'e-mail si le champs nouveau mdp est vide 
+                if ($nouveauMdp != "") {
+                    // Verifie si le nouveau mot de passe est identique à l'ancien
+                    if ($ancienMdp != $nouveauMdp) {
+                        // Modifier le nom, l'e-mail et le mot de passe
+                        $modifierAvecMdp = new User();
+                        $modifierAvecMdp->setNom($nom);
+                        $modifierAvecMdp->setEmail($email);
+                        $modifierAvecMdp->setMdp(password_hash($nouveauMdp, PASSWORD_BCRYPT));
+                        $modifierAvecMdp->setRole($infoCompteModification->getRole());
+                        $modifierAvecMdp->setIdutilisateur($_SESSION["idutilisateur"]);
+                        User::update($modifierAvecMdp);
+                        return "ok";
+                    } else {
+                        return "Le nouveau mot de passe est identique à l'ancien";
+                    }
+                } else {
+                    // Modifier le nom et l'e-mail
+                    $modifierSansMdp = new User();
+                    $modifierSansMdp->setNom($nom);
+                    $modifierSansMdp->setEmail($email);
+                    // Remet l'ancien mot de passe
+                    $modifierSansMdp->setMdp($infoCompteModification->getMdp());
+                    $modifierSansMdp->setRole($infoCompteModification->getRole());
+                    $modifierSansMdp->setIdutilisateur($_SESSION["idutilisateur"]);
+                    User::update($modifierSansMdp);
+                    return "ok";
+                }
+            } else {
+                return "L'ancien mot de passe est incorrect";
+            }
+        } else {
+            return "Il manque une ou plusieurs donnée(s)";
+        }
+    }
+
+    public static function VerifyDataConnect($nom, $mdp)
+    {
+        if ($mdp && $nom) {
+            // Vérifie si l'utilisateur existe et récupère l'id
+            $iduser = User::VerifyConnect($nom, $mdp);
+            if ($iduser != "") {
+                // Stocke l'id dans la session
+                $_SESSION["idutilisateur"] = $iduser;
+                // Permet de récupérer les données de l'utilisateur connecté, utile pour obtenir le role et le stocké dans la session
+                $userConnected = User::findById($iduser);
+                if ($userConnected->getRole() == "utilisateur") {
+                    $_SESSION["compte"]["utilisateur"] = 1;
+                    $_SESSION["compte"]["admin"] = 0;
+                } else {
+                    $_SESSION["compte"]["utilisateur"] = 0;
+                    $_SESSION["compte"]["admin"] = 1;
+                }
+                return "ok";
+            } else {
+                return "Erreur de nom ou de mot de passe";
+            }
+        } else {
             return "Il manque une donnée";
         }
     }
@@ -327,7 +407,7 @@ class User
      */
     public static function isUserConnected()
     {
-        return ($_SESSION["compte"]["utilisateur"] == 1) ? true : false ;
+        return ($_SESSION["compte"]["utilisateur"] == 1) ? true : false;
     }
 
     /**
@@ -337,7 +417,7 @@ class User
      */
     public static function isAdminConnected()
     {
-        return ($_SESSION["compte"]["admin"] == 1) ? true : false ;
+        return ($_SESSION["compte"]["admin"] == 1) ? true : false;
     }
 
     /**
@@ -347,7 +427,7 @@ class User
      */
     public static function isNotConnected()
     {
-        return ($_SESSION["compte"]["utilisateur"] == 0 && $_SESSION["compte"]["admin"] == 0) ? true : false ;
+        return ($_SESSION["compte"]["utilisateur"] == 0 && $_SESSION["compte"]["admin"] == 0) ? true : false;
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
@@ -8,8 +9,6 @@
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
     case '':
-        $userExist = new User();
-        $userExist = User::findAll();
         // message d'erreur
         $erreurConnexion = "";
         // Filtre des données
@@ -17,28 +16,9 @@ switch ($action) {
         $mdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $connexion = filter_input(INPUT_POST, "connexion", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ($connexion == "connexion") {
-            if ($mdp && $nom) {
-                // Vérifie si l'utilisateur existe et récupère l'id
-                $iduser = User::VerifyConnect($nom, $mdp);
-                if ($iduser != "") {
-                    // Stocke l'id dans la session
-                    $_SESSION["idutilisateur"] = $iduser;
-                    // Permet de récupérer les données de l'utilisateur connecté, utile pour obtenir le role et le stocké dans la session
-                    $userConnected = User::findById($iduser);
-                    if ($userConnected->getRole() == "utilisateur") {
-                        $_SESSION["compte"]["utilisateur"] = 1;
-                        $_SESSION["compte"]["admin"] = 0;
-                    } else {
-                        $_SESSION["compte"]["utilisateur"] = 0;
-                        $_SESSION["compte"]["admin"] = 1;
-                    }
-                    header("location: index.php");
-                    exit;
-                } else {
-                    $erreurConnexion = "Erreur de nom ou de mot de passe";
-                }
-            } else {
-                $erreurConnexion = "Il manque une donnée";
+            $erreurConnexion = User::VerifyDataConnect($nom, $mdp);
+            if ($erreurConnexion == "ok") {
+                User::GoToIndex();
             }
         }
         include("vues/login.php");
@@ -49,6 +29,7 @@ switch ($action) {
         if (User::isNotConnected()) {
             User::GoToIndex();
         }
+        // Fonction de déconnexion
         User::Disconnect();
         break;
     case 'inscription':
@@ -68,7 +49,7 @@ switch ($action) {
         if ($erreurInscription == "ok") {
             header("location: index.php?uc=connect");
             exit;
-        }else {
+        } else {
             echo "<br><p class='text-danger h4 text-center'>${erreurInscription}</p>";
         }
         break;
@@ -92,7 +73,7 @@ switch ($action) {
         if ($erreurInscriptionAdmin == "ok") {
             header("location: index.php?uc=connect");
             exit;
-        }else {
+        } else {
             echo "<br><p class='text-danger h4 text-center'>${erreurInscriptionAdmin}</p>";
         }
         break;
