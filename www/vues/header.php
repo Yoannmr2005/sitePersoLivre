@@ -33,11 +33,11 @@
                     <?php
                     // Affiche un lien si on est connecté 
                     if (isset($_SESSION["compte"])) {
-                        if ($_SESSION["compte"]["admin"] == 1) {
+                        if (User::isAdminConnected()) {
                     ?>
                             <li><a href="index.php?uc=admin" class="nav-link px-2 text-white">Admin</a></li>
                         <?php
-                        } elseif ($_SESSION["compte"]["utilisateur"] == 1) {
+                        } elseif (User::isUserConnected()) {
                         ?>
                             <li><a href="index.php?uc=listePerso&action=listePerso" class="nav-link px-2 text-white">Ma liste</a></li>
                         <?php
@@ -57,7 +57,7 @@
 
                 <div class="text-end">
                     <?php
-                    if ($_SESSION["compte"]["admin"] == 0 && $_SESSION["compte"]["utilisateur"] == 0) {
+                    if (User::isNotConnected()) {
                     ?>
                         <button type="button" class="btn btn-warning"><a href="index.php?uc=connect" class="text-decoration-none text-dark">Se connecter</a></button>
 

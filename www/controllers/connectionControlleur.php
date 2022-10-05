@@ -40,6 +40,10 @@ switch ($action) {
         echo "<br><p class='text-danger h4 text-center'>${erreurConnexion}</p>";
         break;
     case 'disconnect':
+        // renvoie à l'accueil si le compte n'est pas connecté
+        if (User::isNotConnected()) {
+            User::GoToIndex();
+        }
         User::Disconnect();
         break;
     case 'inscription':
@@ -64,6 +68,10 @@ switch ($action) {
         }
         break;
     case 'ajoutAdmin':
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         // message d'erreur
         $erreurInscriptionAdmin = "";
         // Filtre des données

@@ -9,12 +9,13 @@
 <?php 
 session_start();
 include("session.php");
-include("vues/header.php"); 
 include("modeles/Livre.php");
 include("modeles/Genre.php");
 include("modeles/Liste.php");
 include("modeles/User.php");
 include("modeles/monPdo.php");
+include("vues/header.php"); 
+
 
 // Récupère les paramètres GET
 $getUc = filter_input(INPUT_GET,"uc",FILTER_SANITIZE_FULL_SPECIAL_CHARS);

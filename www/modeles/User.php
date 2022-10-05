@@ -304,4 +304,25 @@ class User
             return "Il manque une donnée";
         }
     }
+
+    public static function isUserConnected()
+    {
+        return ($_SESSION["compte"]["utilisateur"] == 1) ? true : false ;
+    }
+
+    public static function isAdminConnected()
+    {
+        return ($_SESSION["compte"]["admin"] == 1) ? true : false ;
+    }
+
+    public static function isNotConnected()
+    {
+        return ($_SESSION["compte"]["utilisateur"] == 0 && $_SESSION["compte"]["admin"] == 0) ? true : false ;
+    }
+
+    public static function GoToIndex()
+    {
+        header("location: index.php");
+        exit;
+    }
 }

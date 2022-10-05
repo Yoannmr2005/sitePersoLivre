@@ -6,7 +6,7 @@
             <br>
             <br>
             <?php
-            if ($_SESSION["compte"]["utilisateur"] == 1) {
+            if (User::isUserConnected()) {
             ?>
                 <button type="button" class="btn btn-success">
                     <a href="index.php?uc=listePerso&action=ajouter&id=<?= $livre->getIdlivre() ?>" class="link-dark text-decoration-none">Ajouter dans la liste personnelle</a>

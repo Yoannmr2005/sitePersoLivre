@@ -3,17 +3,33 @@ $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 switch ($action) {
     case '':
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         include("vues/admin/boutonAdmin.php");
         break;
     case 'listLivres':
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         $dataLivre = new Livre();
         $dataLivre = Livre::findAll();
         include("vues/admin/tableauLivre.php");
         break;
     case 'ajouterLivre':
-        # code...
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
+        ///////// Pas fait à cause des problèmes de droit liées au images /////////
         break;
     case 'modifierLivre':
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $modifierLivre = new Livre();
         $modifierLivre = Livre::findById($id);
@@ -68,14 +84,26 @@ switch ($action) {
         echo "<br><p class='text-danger h4 text-center'>${erreurModification}</p>";
         break;
     case 'supprimerLivre':
-        # code...
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
+        ///////// Pas fait à cause des problèmes de droit liées au images /////////
         break;
     case 'listGenres':
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         $dataGenre = new Genre();
         $dataGenre = Genre::findAll();
         include("vues/admin/tableauGenre.php");
         break;
     case 'ajouterGenre':
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         // Filtre des données
         $nom = filter_input(INPUT_POST, "nomgenre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $btnAjouterGenre = filter_input(INPUT_POST, "ajouterGenre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -102,6 +130,10 @@ switch ($action) {
         echo "<br><p class='text-danger h4 text-center'>${erreurAjouterGenre}</p>";
         break;
     case 'modifierGenre':
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $modifierGenre = new Genre();
         $modifierGenre = Genre::findById($id);
@@ -127,6 +159,10 @@ switch ($action) {
         echo "<br><p class='text-danger h4 text-center'>${erreurModifGenre}</p>";
         break;
     case 'supprimerGenre':
+        // renvoie à l'accueil si le compte n'est pas admin
+        if (User::isUserConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $supprimerGenre = new Genre();
         $supprimerGenre->setIdgenre($id);

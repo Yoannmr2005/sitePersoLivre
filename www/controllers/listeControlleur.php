@@ -2,10 +2,18 @@
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
     case 'listePerso':
+        // Renvoie à l'index si ce n'est pas un compte utilisateur
+        if (User::isAdminConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         $liste = Livre::findAllLivreInListe($_SESSION["idutilisateur"]);
         include("vues/afficherliste.php");
         break;
     case 'ajouter':
+        // Renvoie à l'index si ce n'est pas un compte utilisateur
+        if (User::isAdminConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         $ajouter = new Liste();
         // Filtre le GET
         $idlivre = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
@@ -26,6 +34,10 @@ switch ($action) {
         }
         break;
     case 'supprimer':
+        // Renvoie à l'index si ce n'est pas un compte utilisateur
+        if (User::isAdminConnected() || User::isNotConnected()) {
+            User::GoToIndex();
+        }
         // Filtre le GET
         $idlivre = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $delete = new Liste();
