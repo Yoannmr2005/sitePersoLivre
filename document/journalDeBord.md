@@ -87,3 +87,30 @@ Au bout d'une heure et demi, j'ai décidé de passer à autre chose et de faire 
 ### Bilan
 
 Bonne journée malgré un bug non-résolu qui m'a ralenti dans l'avancement du projet
+
+## Jour 5 : Mercredi 05 Octobre
+
+### Objectif
+
+- Suppression de genre
+- Ajout compte admin
+- résoudre le problème de droit
+- installer AMP sur WSL
+
+### Déroulement
+
+Ce matin, tous ce passe bien, j'ai fait la supression du genre et des livres liés à ce genre ainsi que l'ajout de compte admin.
+L'après, j'ai essayé de nouveau de corriger le problème de droit mais sans succèes puis j'ai installé AMP sur WSL car acant j'utilisait Debian AMP de Monsieur Wanner.
+Ensuite, j'ai optimiser mon code (fonction, commentaire) et j'ai fait les droits d'accès.
+Finalement, j'ai réussi à suppimer une image en donnant les droits au dossier img. (sudo chmod 777 img/)
+
+### Bilan
+
+Bonne journée car j'ai réussi à bien avancer et à corriger le gros bug en plus d'avoir installer et configurer AMP
+
+## Jour 6 : Jeudi 06 Octobre
+
+### Objectif
+
+- Ajout de livre
+- Suppression de livre
