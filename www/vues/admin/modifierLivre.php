@@ -19,9 +19,7 @@
                 <label for="floatingInput">Auteur</label>
             </div>
             <div class="form-floating">
-                <textarea class="form-control" style="height: 200px;" name="description" id="description" cols="30" rows="10" placeholder="Description">
-                <?= $modifierLivre->getDescription() ?>
-                </textarea>
+                <textarea class="form-control" style="height: 200px;" name="description" id="description" cols="30" rows="10" placeholder="Description"><?= $modifierLivre->getDescription() ?></textarea>
                 <label for="floatingInput">Description</label>
             </div>
             <div class="form-floating">

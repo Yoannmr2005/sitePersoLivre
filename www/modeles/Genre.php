@@ -154,6 +154,12 @@ class Genre
         return $output;
     }
 
+    /**
+     * Fonction qui regarde si le genre existe déjà
+     *
+     * @param string $genre
+     * @return boolean (true s'il existe, sinon false)
+     */
     public static function GenreAlreadyExist($genre)
     {
         $sql = "SELECT `idgenre`, `genre` FROM genre WHERE genre = ?";
@@ -161,7 +167,7 @@ class Genre
         $statement = MonPdo::getInstance()->prepare($sql);
         $statement->execute($param);
         $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Genre');
-        return $statement->fetch();
+        $statement->fetch();
         if ($statement == []) {
             return true;
         }else {

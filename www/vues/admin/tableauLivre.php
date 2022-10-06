@@ -9,6 +9,10 @@ include("vues/compte/modal.html")
 -->
 <div class="container text-center">
     <h1>Livres</h1>
+    <button type="button" class="btn btn-success btn-rounded" style="float: right;">
+        <a href="index.php?uc=admin&action=ajouterLivre" class="text-decoration-none text-white">Ajouter un livre</a>
+    </button>
+    <br><br>
     <div class="row">
         <table class="table table-success table-striped">
             <tr>
@@ -28,10 +32,10 @@ include("vues/compte/modal.html")
                     <td><?= $livre->getAnnee() ?></td>
                     <td><?= $livre->getAuteur() ?></td>
                     <td><?= Livre::ChangeNumberFormat($livre->getVente()) ?></td>
-                    <td><?php 
-                    $genre = Genre::findById($livre->getIdgenre());
-                    echo $genre->genre;
-                    ?>
+                    <td><?php
+                        $genre = Genre::findById($livre->getIdgenre());
+                        echo $genre->genre;
+                        ?>
                     </td>
                     <td>
                         <a href="index.php?uc=admin&action=modifierLivre&id=<?= $livre->getIdlivre() ?>">

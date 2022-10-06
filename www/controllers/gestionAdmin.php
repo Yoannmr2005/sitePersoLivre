@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
@@ -28,7 +29,52 @@ switch ($action) {
         if (User::isUserConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
-        ///////// Pas fait à cause des problèmes de droit liées au images /////////
+        // Filtre des données
+        $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $auteur = filter_input(INPUT_POST, "auteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $annee = filter_input(INPUT_POST, "annee", FILTER_VALIDATE_INT);
+        $vente = filter_input(INPUT_POST, "vente", FILTER_VALIDATE_INT);
+        $image = filter_input(INPUT_POST, "image", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $description = filter_input(INPUT_POST, "description", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $btnajouter = filter_input(INPUT_POST, "ajouter", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        // Message d'erreur
+        $erreurAjouterLivre = "";
+        if ($btnajouter == "ajouter") {
+            if ($nom && $auteur && $annee && $vente && $description && $genre && basename($_FILES["image"]["name"]) != "") {
+                if ($annee <= date("Y")) {
+                    if ($vente > 0) {
+                        $target_dir = "img/";
+                        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                        if (file_exists($target_file) == false) {
+                            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                                $ajouterLivre = new Livre();
+                                $ajouterLivre->setNom($nom);
+                                $ajouterLivre->setAuteur($auteur);
+                                $ajouterLivre->setAnnee($annee);
+                                $ajouterLivre->setVente($vente);
+                                $ajouterLivre->setImage($image);
+                                $ajouterLivre->setDescription($description);
+                                $ajouterLivre->setIdgenre($genre);
+                                Livre::add($ajouterLivre);
+                            }else {
+                                $erreurAjouterLivre = "Erreur lors de l'ajout de l'image";
+                            }
+                        }else {
+                            $erreurAjouterLivre = "L'image est déjà utilisée par un autre livre";
+                        }
+                    }else {
+                        $erreurAjouterLivre = "La vente d'un livre ne peut pas etre inférrieur à 0";
+                    }
+                }else {
+                    $erreurAjouterLivre = "Le livre ne peut pas venir du futur !";
+                }
+            }else {
+                $erreurAjouterLivre = "Il manque des données";
+            }
+        }
+
+        include("vues/admin/ajouterLivre.php");
         break;
     case 'modifierLivre':
         // renvoie à l'accueil si le compte n'est pas admin

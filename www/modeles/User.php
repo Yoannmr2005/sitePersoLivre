@@ -324,16 +324,15 @@ class User
     /**
      * Vérifie les informations du formulaire de modification des informations du compte
      *
-     * @param [type] $nom
-     * @param [type] $email
-     * @param [type] $ancienMdp
-     * @param [type] $nouveauMdp
-     * @return void
+     * @param string $nom
+     * @param string $email
+     * @param string $ancienMdp
+     * @param string $nouveauMdp
+     * @param User $infoCompteModification
+     * @return string
      */
-    public static function VerifyDataModifCompte($nom, $email, $ancienMdp, $nouveauMdp)
+    public static function VerifyDataModifCompte($nom, $email, $ancienMdp, $nouveauMdp, $infoCompteModification)
     {
-        $infoCompteModification = new User();
-        $infoCompteModification = User::findById($_SESSION["idutilisateur"]);
         // Vérifie si les champs obligatoires sont remplies
         if ($nom && $email && $ancienMdp) {
             // Vérifie si l'ancien mot de passe est correcte
