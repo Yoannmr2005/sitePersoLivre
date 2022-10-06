@@ -46,35 +46,42 @@ switch ($action) {
                     if ($vente > 0) {
                         $target_dir = "img/";
                         $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
                         if (file_exists($target_file) == false) {
-                            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                                $ajouterLivre = new Livre();
-                                $ajouterLivre->setNom($nom);
-                                $ajouterLivre->setAuteur($auteur);
-                                $ajouterLivre->setAnnee($annee);
-                                $ajouterLivre->setVente($vente);
-                                $ajouterLivre->setImage($image);
-                                $ajouterLivre->setDescription($description);
-                                $ajouterLivre->setIdgenre($genre);
-                                Livre::add($ajouterLivre);
-                            }else {
-                                $erreurAjouterLivre = "Erreur lors de l'ajout de l'image";
+                            if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" || $imageFileType == "jfif") {
+                                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                                    $ajouterLivre = new Livre();
+                                    $ajouterLivre->setNom($nom);
+                                    $ajouterLivre->setAuteur($auteur);
+                                    $ajouterLivre->setAnnee($annee);
+                                    $ajouterLivre->setVente($vente);
+                                    $ajouterLivre->setImage(basename($_FILES["image"]["name"]));
+                                    $ajouterLivre->setDescription($description);
+                                    $ajouterLivre->setIdgenre($genre);
+                                    Livre::add($ajouterLivre);
+                                    header("index.php?uc=admin&action=ListLivres");
+                                    exit;
+                                } else {
+                                    $erreurAjouterLivre = "Erreur lors de l'ajout de l'image";
+                                }
+                            } else {
+                                $erreurAjouterLivre = "Je n'accepte pas ce format d'image";
                             }
-                        }else {
+                        } else {
                             $erreurAjouterLivre = "L'image est déjà utilisée par un autre livre";
                         }
-                    }else {
+                    } else {
                         $erreurAjouterLivre = "La vente d'un livre ne peut pas etre inférrieur à 0";
                     }
-                }else {
+                } else {
                     $erreurAjouterLivre = "Le livre ne peut pas venir du futur !";
                 }
-            }else {
+            } else {
                 $erreurAjouterLivre = "Il manque des données";
             }
         }
-
         include("vues/admin/ajouterLivre.php");
+        echo "<br><p class='text-danger h4 text-center'>${erreurAjouterLivre}</p>";
         break;
     case 'modifierLivre':
         // renvoie à l'accueil si le compte n'est pas admin
@@ -144,7 +151,16 @@ switch ($action) {
         if (User::isUserConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
-        ///////// Pas fait à cause des problèmes de droit liées au images /////////
+
+        $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+        $dataLivre = Livre::findById($id);
+        $supprimerLivre = new Livre();
+        $supprimerLivre->setIdlivre($id);
+        unlink("img/" . $dataLivre->getImage());
+        Livre::delete($supprimerLivre);
+        header("location: index.php?uc=admin&action=listLivres");
+        exit;
+
         break;
     case 'listGenres':
         // renvoie à l'accueil si le compte n'est pas admin

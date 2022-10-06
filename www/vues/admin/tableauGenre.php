@@ -45,7 +45,6 @@ include("vues/compte/modal.html")
                                     <p>Es-tu sûr de vouloir supprimer ce genre ?</p>
                                     <p class="text-danger h4">ATTENTION ! Si le genre est utilisée par des livres, les livres liés seront supprimés</p>
                                     <div class="clearfix">
-                                        <input type="hidden" name="idgenre" value="<?= $genre->getIdgenre() ?>">
                                         <button type="submit" onclick="document.getElementById('id<?= $genre->getIdgenre() ?>').style.display='none'" name="annuler" class="cancelbtn">Annuler</button>
                                         <button type="submit" onclick="document.getElementById('id<?= $genre->getIdgenre() ?>').style.display='none'" name="supprimer" value="supprimer" class="deletebtn">
                                             <a href="index.php?uc=admin&action=supprimerGenre&id=<?= $genre->getIdgenre() ?>" class="text-decoration-none text-black">Supprimer</a>

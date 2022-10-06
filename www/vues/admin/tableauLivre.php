@@ -42,19 +42,21 @@ include("vues/compte/modal.html")
                             <img src="img/crayon.png" alt="image de modification">
                         </a>
 
-                        <button onclick="document.getElementById('id01').style.display='block'" class="delete">
+                        <button onclick="document.getElementById('id<?= $livre->getIdlivre() ?>').style.display='block'" class="delete">
                             <img src="img/suppression.png" alt="image de suppression">
                         </button>
 
-                        <div id="id01" class="modal">
-                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+                        <div id="id<?= $livre->getIdlivre() ?>" class="modal">
+                            <span onclick="document.getElementById('id<?= $livre->getIdlivre() ?>').style.display='none'" class="close" title="Close Modal">×</span>
                             <form class="modal-content" method="POST" action="">
                                 <div class="containerModal">
                                     <h1>Supprimer Livre</h1>
                                     <p>Es-tu sûr de vouloir supprimer ce livre ?</p>
                                     <div class="clearfix">
-                                        <button type="submit" onclick="document.getElementById('id01').style.display='none'" name="annuler" class="cancelbtn">Annuler</button>
-                                        <button type="submit" onclick="document.getElementById('id01').style.display='none'" name="supprimer" value="supprimer" class="deletebtn">Supprimer</button>
+                                        <button type="submit" onclick="document.getElementById('id<?= $livre->getIdlivre() ?>').style.display='none'" name="annuler" class="cancelbtn">Annuler</button>
+                                        <button type="submit" onclick="document.getElementById('id<?= $livre->getIdlivre() ?>').style.display='none'" name="supprimer" value="supprimer" class="deletebtn">
+                                            <a href="index.php?uc=admin&action=supprimerLivre&id=<?= $livre->getIdlivre() ?>" class="text-decoration-none text-black">Supprimer</a>
+                                        </button>
                                     </div>
                                 </div>
                             </form>

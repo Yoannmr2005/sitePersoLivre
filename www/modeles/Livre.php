@@ -320,7 +320,7 @@ class Livre
      */
     public static function delete(Livre $livre)
     {
-        $sql = "DELETE FROM livre WHERE idlivre = ?)";
+        $sql = "DELETE FROM livre WHERE idlivre = ?";
         $param = [$livre->getIdlivre()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;
