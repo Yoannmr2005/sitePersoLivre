@@ -19,6 +19,8 @@ switch ($action) {
         include("vues/compte/tableauCompte.php");
         break;
     case 'modifier':
+        $infoCompteModification = new User();
+        $infoCompteModification = User::findById($_SESSION["idutilisateur"]);
         // Message d'erreur de modification du compte
         $erreurFormModif = "";
         // Filtre des données
@@ -29,7 +31,7 @@ switch ($action) {
         $modifier = filter_input(INPUT_POST, "modifier", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Si on comfirme
         if ($modifier == "modifier") {
-            $erreurFormModif = User::VerifyDataModifCompte($nom, $email, $ancienMdp, $nouveauMdp);
+            $erreurFormModif = User::VerifyDataModifCompte($nom, $email, $ancienMdp, $nouveauMdp, $infoCompteModification);
             // On redirige si la modification est ok
             if ($erreurFormModif == "ok") {
                 header("location: index.php?uc=compte");
