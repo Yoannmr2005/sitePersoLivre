@@ -73,7 +73,7 @@ Aujourd'hui, j'ai été productif malgré les problèmes et les erreurs mais je 
 ### Objectif
 
 - Ajout de la suppression
-- Ajout page admin pour gerer les livres et les genres
+- Ajout page admin pour gérer les livres et les genres
 - Liste des genres et listes des livres
 - Modification livre
 
@@ -81,12 +81,12 @@ Aujourd'hui, j'ai été productif malgré les problèmes et les erreurs mais je 
 
 Aujourd'hui, j'ai continué le projet. Je n'ai pas eu de problème jusqu'à ce que je modifie un livre.
 En effet, j'ai une erreur de droit qui fait que je ne peux pas supprimer l'image pour mettre la nouvelle.
-J'ai chercher coment faire sur internet et j'ai regardé les droits des dossier (chmod) et les droits de l'utilisateur de la DB mais sans succès.
-Au bout d'une heure et demi, j'ai décidé de passer à autre chose et de faire la liste et la modification de genre.
+J'ai cherché comment faire sur internet et j'ai regardé les droits des dossiers (chmod) et les droits de l'utilisateur de la DB mais sans succès.
+Au bout d'une heure et demie, j'ai décidé de passer à autre chose et de faire la liste et la modification de genre.
 
 ### Bilan
 
-Bonne journée malgré un bug non-résolu qui m'a ralenti dans l'avancement du projet
+Bonne journée malgré un bug non résolu qui m'a ralenti dans l'avancement du projet
 
 ## Jour 5 : Mercredi 05 Octobre
 
@@ -99,14 +99,14 @@ Bonne journée malgré un bug non-résolu qui m'a ralenti dans l'avancement du p
 
 ### Déroulement
 
-Ce matin, tous ce passe bien, j'ai fait la supression du genre et des livres liés à ce genre ainsi que l'ajout de compte admin.
-L'après, j'ai essayé de nouveau de corriger le problème de droit mais sans succèes puis j'ai installé AMP sur WSL car acant j'utilisait Debian AMP de Monsieur Wanner.
-Ensuite, j'ai optimiser mon code (fonction, commentaire) et j'ai fait les droits d'accès.
-Finalement, j'ai réussi à suppimer une image en donnant les droits au dossier img. (sudo chmod 777 img/)
+Ce matin, tout ce passe bien, j'ai fait la supression du genre et des livres liés à ce genre ainsi que l'ajout de compte admin.
+L'après, j'ai essayé de nouveau de corriger le problème de droit mais sans succèes puis j'ai installé AMP sur WSL car avant j'utilisais Debian AMP de Monsieur Wanner.
+Ensuite, j'ai optimisé mon code (fonction, commentaire) et j'ai fait les droits d'accès.
+Finalement, j'ai réussi à supprimer une image en donnant les droits au dossier img. (sudo chmod 777 img/)
 
 ### Bilan
 
-Bonne journée car j'ai réussi à bien avancer et à corriger le gros bug en plus d'avoir installer et configurer AMP
+Bonne journée car j'ai réussi à bien avancer et à corriger le gros bug en plus d'avoir installé et configurer AMP
 
 ## Jour 6 : Jeudi 06 Octobre
 
@@ -114,3 +114,22 @@ Bonne journée car j'ai réussi à bien avancer et à corriger le gros bug en pl
 
 - Ajout de livre
 - Suppression de livre
+
+### Déroulement
+
+Ce matin, en arrivant j'ai ouvert dbeaver et j'ai eu une erreur. J'ai passé la matiné à faire marcher Dbeaver en réinstallant WSL et AMP car je n'avais pas de droit.
+Cet après-midi, j'ai fait comme prévu l'ajout de véhicule ainsi que la suppression sans trop de problèmes.
+
+### Bilan
+
+Matinée cauchemardesque où je n'ai pas peut travailler mais un après-midi efficace qui me permet de finir les dernières fonctionnalités prévues dans le cahier des charges.
+
+## Jour 7 : Lundi 10 Octobre
+
+### Objectif
+
+- finaliser la modification de livre (oublie du genre et vérification de l'image-> extension et déjà utilisée par un autre livre)
+- optimiser le code
+- faire de la documentation
+- faire une présentation
+- faire un scénario de l'utilisation de mon site
