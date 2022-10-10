@@ -13,7 +13,7 @@
     <h1>Site de livre</h1>
     <br>
     <div class="row">
-    <h4>Livre les plus lues au monde</h4>
+    <h4>Livre les plus vendues au monde</h4>
         <?php
         foreach ($index as $livre) {
         ?>

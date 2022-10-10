@@ -45,22 +45,35 @@ switch ($action) {
                 if ($annee <= date("Y")) {
                     if ($vente > 0) {
                         $target_dir = "img/";
+                        // Récupère la destination du fichier (ex: img/batman.png)
                         $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                        // Récupère l'extension de l'image dans le formulaire
                         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                        // Regarde si le fichier existe
                         if (file_exists($target_file) == false) {
-                            if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" || $imageFileType == "jfif") {
+                            // Vérifie si le fichier est bien une image
+                            if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "jfif") {
+                                // ajoute la nouvelle image dans le dossier img     
                                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                                    $ajouterLivre = new Livre();
-                                    $ajouterLivre->setNom($nom);
-                                    $ajouterLivre->setAuteur($auteur);
-                                    $ajouterLivre->setAnnee($annee);
-                                    $ajouterLivre->setVente($vente);
-                                    $ajouterLivre->setImage(basename($_FILES["image"]["name"]));
-                                    $ajouterLivre->setDescription($description);
-                                    $ajouterLivre->setIdgenre($genre);
-                                    Livre::add($ajouterLivre);
-                                    header("index.php?uc=admin&action=ListLivres");
-                                    exit;
+                                    // Récupère la taille de l'image
+                                    $dimensions = getimagesize($target_file);
+                                    // Vérifie la taille de l'image (nécessaire pour l'affichage)
+                                    if (($dimensions[0] == "150") && ($dimensions[1] == "200")) {
+                                        $ajouterLivre = new Livre();
+                                        $ajouterLivre->setNom($nom);
+                                        $ajouterLivre->setAuteur($auteur);
+                                        $ajouterLivre->setAnnee($annee);
+                                        $ajouterLivre->setVente($vente);
+                                        $ajouterLivre->setImage(basename($_FILES["image"]["name"]));
+                                        $ajouterLivre->setDescription($description);
+                                        $ajouterLivre->setIdgenre($genre);
+                                        Livre::add($ajouterLivre);
+                                        header("location: index.php?uc=admin&action=listLivres");
+                                        exit;
+                                    } else {
+                                        unlink($target_file);
+                                        $erreurAjouterLivre = "La taille de l'image doit etre de 150x200 pixels";
+                                    }
                                 } else {
                                     $erreurAjouterLivre = "Erreur lors de l'ajout de l'image";
                                 }
@@ -100,38 +113,61 @@ switch ($action) {
         $vente = filter_input(INPUT_POST, "vente", FILTER_VALIDATE_INT);
         $image = filter_input(INPUT_POST, "image", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $description = filter_input(INPUT_POST, "description", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $modifier = filter_input(INPUT_POST, "modifier", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Message d'erreur
         $erreurModification = "";
 
         if ($modifier == "modifier") {
-            if ($nom && $auteur && $annee && $vente && $description && basename($_FILES["image"]["name"]) != "") {
+            if ($nom && $auteur && $annee && $vente && $genre && $description && basename($_FILES["image"]["name"]) != "") {
                 if ($annee <= date("Y")) {
                     if ($vente > 0) {
                         $target_dir = "img/";
+                        // récupère l'image à supprimer
                         $filename = $target_dir . $modifierLivre->getImage();
                         @chmod($filename, 0777);
-                        if (unlink($filename)) {
-                            $target_file = $target_dir . basename($_FILES["image"]["name"]);
-                            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                                // Modifie le livre dans la DB
-                                $modification = new Livre();
-                                $modification->setNom($nom);
-                                $modification->setAuteur($auteur);
-                                $modification->setAnnee($annee);
-                                $modification->setVente($vente);
-                                $modification->setDescription($description);
-                                $modification->setIdgenre($modifierLivre->getIdgenre());
-                                $modification->setIdlivre($id);
-                                $modification->setImage(basename($_FILES["image"]["name"]));
-                                Livre::update($modification);
-                                header("location: index.php?uc=admin&action=listLivres");
-                                exit;
+                        // Récupère la destination du fichier (ex: img/batman.png)
+                        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                        // Récupère l'extension de l'image dans le formulaire
+                        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                        // Regarde si le fichier existe
+                        if (file_exists($target_file) == false) {
+                            // Vérifie si le fichier est bien une image
+                            if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "jfif") {
+                                // ajoute la nouvelle image dans le dossier img
+                                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                                    // Récupère la taille de l'image
+                                    $dimensions = getimagesize($target_file);
+                                    // Vérifie la taille de l'image (nécessaire pour l'affichage)
+                                    if (($dimensions[0] == "150") && ($dimensions[1] == "200")) {
+                                        // Supprime l'ancienne image dans le dossier img
+                                        unlink($filename);
+                                        // Modifie le livre dans la DB
+                                        $modification = new Livre();
+                                        $modification->setNom($nom);
+                                        $modification->setAuteur($auteur);
+                                        $modification->setAnnee($annee);
+                                        $modification->setVente($vente);
+                                        $modification->setDescription($description);
+                                        $modification->setIdgenre($genre);
+                                        $modification->setIdlivre($id);
+                                        $modification->setImage(basename($_FILES["image"]["name"]));
+                                        Livre::update($modification);
+                                        header("location: index.php?uc=admin&action=listLivres");
+                                        exit;
+                                    } else {
+                                        // Supprime la nouvelle image puisqu'elle est trop grande
+                                        unlink($target_file);
+                                        $erreurModification = "La taille de l'image doit etre de 150x200 pixels";
+                                    }
+                                } else {
+                                    $erreurModification = "Erreur lors de l'upload de la nouvelle image";
+                                }
                             } else {
-                                $erreurModification = "Erreur lors de l'upload de la nouvelle image";
+                                $erreurModification = "L'extension du fihier n'est pas accépté (jpg, png, jpeg, gif ou jfif)";
                             }
                         } else {
-                            $erreurModification = "Erreur lors de la supression de l'image";
+                            $erreurModification = "La nouvelle image est déjà utilisée par un livre";
                         }
                     } else {
                         $erreurModification = "La vente ne peut pas être inférieur à 0";

@@ -26,8 +26,11 @@
                 <input type="number" class="form-control" id="annee" name="annee" value="<?= $modifierLivre->getAnnee() ?>" placeholder="Annee">
                 <label for="floatingInput">Annee</label>
             </div>
-
-            <label for="floatingInput">Image</label>
+            <div class="form-floating">
+                <?= Genre::CreateSelectFromGenre() ?>
+                <label for="floatingInput">Genre</label>
+            </div>
+            <label for="floatingInput">Image (150x200 pixel)</label>
             <input type="file" class="form-control" name="image">
 
             <div class="form-floating">
