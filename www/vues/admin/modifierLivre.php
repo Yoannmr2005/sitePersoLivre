@@ -30,7 +30,7 @@
                 <?= Genre::CreateSelectFromGenre() ?>
                 <label for="floatingInput">Genre</label>
             </div>
-            <label for="floatingInput">Image (150x200 pixel)</label>
+            <label for="floatingInput">Image (150x200 pixel) (non-obligatoire)</label>
             <input type="file" class="form-control" name="image">
 
             <div class="form-floating">
