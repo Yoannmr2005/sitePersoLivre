@@ -105,7 +105,11 @@ switch ($action) {
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $modifierLivre = new Livre();
         $modifierLivre = Livre::findById($id);
-
+        // Renvoie à la gestion si l'id de l'url n'existe pas dans la DB
+        if ($modifierLivre == false) {
+            header("location: index.php?uc=admin&action=listLivres");
+            exit;
+        }
         // Filtre des données
         $nom = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $auteur = filter_input(INPUT_POST, "auteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -196,7 +200,6 @@ switch ($action) {
         Livre::delete($supprimerLivre);
         header("location: index.php?uc=admin&action=listLivres");
         exit;
-
         break;
     case 'listGenres':
         // renvoie à l'accueil si le compte n'est pas admin
@@ -245,6 +248,11 @@ switch ($action) {
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $modifierGenre = new Genre();
         $modifierGenre = Genre::findById($id);
+        // Renvoie à la gestion si l'id de l'url n'existe pas dans la DB
+        if ($modifierGenre == false) {
+            header("location: index.php?uc=admin&action=listGenres");
+            exit;
+        }
         // Filtre des données
         $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $btnModifier = filter_input(INPUT_POST, "modifier", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
