@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
@@ -6,7 +7,7 @@
  * Page : Controlleur principal
  */
 ?>
-<?php 
+<?php
 session_start();
 include("session.php");
 include("modeles/Livre.php");
@@ -14,10 +15,10 @@ include("modeles/Genre.php");
 include("modeles/Liste.php");
 include("modeles/User.php");
 include("modeles/monPdo.php");
-include("vues/header.php"); 
+include("vues/header.php");
 
 // Récupère les paramètres GET
-$getUc = filter_input(INPUT_GET,"uc",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$getUc = filter_input(INPUT_GET, "uc", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 // Si l'url est vide, on met accueil
 $uc = empty($getUc) ? "accueil" : $getUc;
 
@@ -45,5 +46,5 @@ switch ($uc) {
         User::GoToIndex();
         break;
 }
-include("vues/footer.php"); 
+include("vues/footer.php");
 ?>

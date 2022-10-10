@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
@@ -36,7 +37,7 @@ class Genre
      * @param  int  $idgenre  Id du genre
      *
      * @return  self
-     */ 
+     */
     public function setIdgenre(int $idgenre)
     {
         $this->idgenre = $idgenre;
@@ -170,7 +171,7 @@ class Genre
         $statement->fetch();
         if ($statement == []) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

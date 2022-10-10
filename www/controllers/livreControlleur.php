@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Auteur : Yoann Meier
  * Site de livre
  * Version : 3.0
  * Page : controlleur des pages non connecté (accueil, liste des livres et page détails d'un livre)
  */
-$action = filter_input(INPUT_GET,"action",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
     case '':
         $index = new Livre();
@@ -18,7 +19,7 @@ switch ($action) {
         include("vues/afficherliste.php");
         break;
     case 'livre':
-        $id = filter_input(INPUT_GET,"id",FILTER_VALIDATE_INT);
+        $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $livre = new Livre();
         $livre = Livre::findById($id);
         // Renvoie à la gestion si l'id de l'url n'existe pas dans la DB

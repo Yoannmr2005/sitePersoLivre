@@ -137,4 +137,3 @@ class Liste {
         return $query;
     }
 }
-?>

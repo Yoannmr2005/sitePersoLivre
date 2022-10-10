@@ -180,7 +180,7 @@ switch ($action) {
                             } else {
                                 $erreurModification = "La nouvelle image est déjà utilisée par un livre";
                             }
-                        }else {
+                        } else {
                             $erreurModification = "Le genre n'existe pas";
                         }
                     } else {
