@@ -138,8 +138,9 @@ class Genre
 
 
     /**
-     * fonction qui créer un select des genres
+     * fonction qui créer un select des genres ainsi qu'un selected de l'id transmis
      *
+     * @param int $id
      * @return string
      */
     public static function CreateSelectFromGenre($id)

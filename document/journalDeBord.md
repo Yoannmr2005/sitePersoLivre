@@ -133,3 +133,19 @@ Matinée cauchemardesque où je n'ai pas peut travailler mais un après-midi eff
 - faire de la documentation
 - faire une présentation
 - faire un scénario de l'utilisation de mon site
+
+### Déroulement
+
+Aujourd'hui, j'ai finaliser la modification du livre en regardant si il y a un image, si oui je supprime l'ancienne et en met un nouvelle, sinon je modifie tous sauf l'image. J'ai également optimser le code en redirigant sur l'index si l'utilisateur modifie l'url etc.
+
+### Bilan
+
+Bonne journée ou je suis arrivé à la fin du projet néanmois, il me reste la documentation et la présentation à faire.
+
+### Jour 8 : Mercredi 12 Octobre
+
+### Objectif
+
+- optimiser le code si je vois des choses à faire
+- documentation (procédure pour faire marcher le site)
+- présentation PowerPoint
