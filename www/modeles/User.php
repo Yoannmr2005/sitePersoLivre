@@ -373,6 +373,13 @@ class User
         }
     }
 
+    /**
+     * Vérifie les données de connexion
+     *
+     * @param string $nom
+     * @param string $mdp
+     * @return string
+     */
     public static function VerifyDataConnect($nom, $mdp)
     {
         if ($mdp && $nom) {

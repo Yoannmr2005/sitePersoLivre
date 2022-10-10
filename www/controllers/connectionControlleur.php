@@ -77,4 +77,8 @@ switch ($action) {
             echo "<br><p class='text-danger h4 text-center'>${erreurInscriptionAdmin}</p>";
         }
         break;
+    default:
+        // Redirige à l'accueil si l'action est incorrecte
+        User::GoToIndex();
+        break;
 }

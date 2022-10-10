@@ -279,4 +279,8 @@ switch ($action) {
         header("location: index.php?uc=admin&action=listGenres");
         exit;
         break;
+    default:
+        // Redirige à l'accueil si l'action est incorrecte
+        User::GoToIndex();
+        break;
 }

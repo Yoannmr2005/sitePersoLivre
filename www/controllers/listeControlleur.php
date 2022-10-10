@@ -52,4 +52,8 @@ switch ($action) {
         Liste::delete($delete);
         header("location: index.php?uc=listePerso&action=listePerso");
         exit;
+    default:
+        // Redirige à l'accueil si l'action est incorrecte
+        User::GoToIndex();
+        break;
 }

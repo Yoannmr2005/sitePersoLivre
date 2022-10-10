@@ -25,4 +25,8 @@ switch ($action) {
         $genreLivre = Genre::findById($livre->getIdgenre());
         include("vues/infoLivre.php");
         break;
+    default:
+        // Redirige à l'accueil si l'action est incorrecte
+        User::GoToIndex();
+        break;
 }

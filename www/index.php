@@ -16,7 +16,6 @@ include("modeles/User.php");
 include("modeles/monPdo.php");
 include("vues/header.php"); 
 
-
 // Récupère les paramètres GET
 $getUc = filter_input(INPUT_GET,"uc",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 // Si l'url est vide, on met accueil
@@ -41,7 +40,10 @@ switch ($uc) {
     case 'admin':
         require_once('controllers/gestionAdmin.php');
         break;
+    default:
+        // Redirige à l'accueil si l'uc est incorrecte
+        User::GoToIndex();
+        break;
 }
-
 include("vues/footer.php"); 
 ?>

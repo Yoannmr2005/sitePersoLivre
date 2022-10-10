@@ -48,4 +48,8 @@ switch ($action) {
         User::Disconnect();
         User::GoToIndex();
         break;
+    default:
+        // Redirige à l'accueil si l'action est incorrecte
+        User::GoToIndex();
+        break;
 }
