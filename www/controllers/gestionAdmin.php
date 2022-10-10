@@ -191,7 +191,7 @@ switch ($action) {
                                 $modification->setDescription($description);
                                 $modification->setIdgenre($genre);
                                 $modification->setIdlivre($id);
-                                $modification->setImage($filename);
+                                $modification->setImage($modifierLivre->getImage());
                                 Livre::update($modification);
                                 header("location: index.php?uc=admin&action=listLivres");
                                 exit;

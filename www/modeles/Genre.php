@@ -142,14 +142,15 @@ class Genre
      *
      * @return string
      */
-    public static function CreateSelectFromGenre()
+    public static function CreateSelectFromGenre($id)
     {
         $sql = "SELECT idgenre, genre FROM genre";
         $query = MonPDO::dbRun($sql, []);
         $dataGenre = $query->fetchAll(PDO::FETCH_KEY_PAIR);
         $output = "<select name='genre' class='form-control'>";
         foreach ($dataGenre as $key => $value) {
-            $output .= "<option value='$key'>$value</option>";
+            $selected = ($id == $key) ? "selected" : "";
+            $output .= "<option value='$key' $selected>$value</option>";
         }
         $output .= "</select>";
         return $output;

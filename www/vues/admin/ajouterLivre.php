@@ -19,7 +19,7 @@
                 <label for="floatingInput">Auteur</label>
             </div>
             <div class="form-floating">
-                <?= Genre::CreateSelectFromGenre() ?>
+                <?= Genre::CreateSelectFromGenre(1) ?>
                 <label for="floatingInput">Genre</label>
             </div>
             <div class="form-floating">

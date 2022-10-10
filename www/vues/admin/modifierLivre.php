@@ -27,7 +27,7 @@
                 <label for="floatingInput">Annee</label>
             </div>
             <div class="form-floating">
-                <?= Genre::CreateSelectFromGenre() ?>
+                <?= Genre::CreateSelectFromGenre($modifierLivre->getIdgenre()) ?>
                 <label for="floatingInput">Genre</label>
             </div>
             <label for="floatingInput">Image (150x200 pixel) (non-obligatoire)</label>
