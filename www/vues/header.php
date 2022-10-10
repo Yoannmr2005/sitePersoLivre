@@ -59,12 +59,11 @@
                     <?php
                     if (User::isNotConnected()) {
                     ?>
-                        <button type="button" class="btn btn-warning"><a href="index.php?uc=connect" class="text-decoration-none text-dark">Se connecter</a></button>
-
+                        <a href="index.php?uc=connect" class="btn btn-warning text-decoration-none text-dark" role="button">Se connecter</a>
                     <?php
                     } else {
                     ?>
-                        <button type="button" class="btn btn-warning"><a href="index.php?uc=connect&action=disconnect" class="text-decoration-none text-dark">Se deconnecter</a></button>
+                        <a href="index.php?uc=connect&action=disconnect" class="btn btn-warning text-decoration-none text-dark" role="button">Se deconnecter</a>
                     <?php
                     }
 

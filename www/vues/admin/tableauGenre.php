@@ -9,9 +9,7 @@ include("vues/compte/modal.html")
 -->
 <div class="container text-center">
     <h1>Genres</h1>
-    <button type="button" class="btn btn-success btn-rounded" style="float: right;">
-        <a href="index.php?uc=admin&action=ajouterGenre" class="text-decoration-none text-white" >Ajouter un genre</a>
-    </button>
+    <a href="index.php?uc=admin&action=ajouterGenre" class="btn btn-success btn-rounded" style="float: right;" role="button">Ajouter un genre</a>
     <br>
     <br>
     <div class="row">
