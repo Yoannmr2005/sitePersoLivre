@@ -2,7 +2,7 @@
   Auteur : Yoann Meier
   Site de livre
   Version : 3.0
-  Dump de la base donnÃ©es du site
+  Dump de la base donnÃƒÂ©es du site
 */
 
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)

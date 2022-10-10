@@ -33,7 +33,6 @@ switch ($action) {
         User::Disconnect();
         break;
     case 'inscription':
-        $addUser = new User();
         // message d'erreur
         $erreurInscription = "";
         // Filtre des données
