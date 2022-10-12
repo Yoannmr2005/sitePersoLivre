@@ -14,8 +14,10 @@
             <?php
             if (User::isUserConnected()) {
             ?>
-                <a href="index.php?uc=listePerso&action=ajouter&id=<?= $livre->getIdlivre() ?>" class="btn btn-success link-dark text-decoration-none" role="button">Ajouter dans la liste personnelle</a>
-            <?php
+                <a href="index.php?uc=listePerso&action=ajouter&id=<?= $livre->getIdlivre() ?>" class="btn btn-success link-dark text-decoration-none" role="button" style="width: 270px;">Ajouter dans la liste personnelle</a>
+                <br><br>
+                <a href="pdf/<?= $livre->getPdf() ?>" download class="btn btn-warning link-dark text-decoration-none" role="button" style="width: 270px;">Télecharger le pdf du livre</a>
+           <?php
             }
             if (isset($_SESSION["msgLivreDejaDansListe"]) && $_SESSION["msgLivreDejaDansListe"] != "") {
                 echo $_SESSION['msgLivreDejaDansListe'];
@@ -37,9 +39,10 @@
         </div>
         <?php
         if (User::isUserConnected()) {
+            // Affiche un message si il n'y a pas de lien
             if ($livre->getLien() == "") {
         ?>
-                <p class='text-danger h4 text-center'>Il n'y a aucun audiobook sur ce livre</p>
+                <p class='text-danger h4 text-center'>Il n'y a aucun audiobook pour ce livre</p>
             <?php
             } else {
             ?>

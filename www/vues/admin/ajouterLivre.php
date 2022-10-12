@@ -30,10 +30,14 @@
                 <input type="text" class="form-control" id="lien" name="lien" value="<?= $lien ?>" placeholder="Lien de l'audiobook (https:// obligatoire)">
                 <label for="floatingInput">Lien de l'audiobook (https:// obligatoire)</label>
             </div>
+
             <div class="form-floating">
                 <input type="number" class="form-control" id="annee" name="annee" value="<?= $annee ?>" placeholder="Annee">
                 <label for="floatingInput">Annee</label>
             </div>
+
+            <label for="floatingInput">Livre en format Pdf</label>
+            <input type="file" class="form-control" name="pdf">
 
             <label for="floatingInput">Image (150x200 pixel)</label>
             <input type="file" class="form-control" name="image">

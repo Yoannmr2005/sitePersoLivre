@@ -72,6 +72,12 @@ class Livre
     private $lien;
 
     /**
+     * nom du fichier pdf
+     *
+     * @var string
+     */
+    private $pdf;
+    /**
      * Get the value of idlivre
      */
     public function getIdlivre()
@@ -258,6 +264,30 @@ class Livre
     }
 
     /**
+     * Get nom du fichier pdf
+     *
+     * @return  string
+     */ 
+    public function getPdf()
+    {
+        return $this->pdf;
+    }
+
+    /**
+     * Set nom du fichier pdf
+     *
+     * @param  string  $pdf  nom du fichier pdf
+     *
+     * @return  self
+     */ 
+    public function setPdf(string $pdf)
+    {
+        $this->pdf = $pdf;
+
+        return $this;
+    }
+    
+    /**
      * Retourne l'ensemble des livres
      *
      * @return Livre[]
@@ -291,7 +321,7 @@ class Livre
      */
     public static function findById(int $id)
     {
-        $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`,`lien` FROM livre WHERE idlivre = ?;";
+        $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`,`lien`,`pdf` FROM livre WHERE idlivre = ?;";
         $param = [$id];
         $statement = MonPdo::getInstance()->prepare($sql);
         $statement->execute($param);
@@ -323,8 +353,8 @@ class Livre
      */
     public static function add(Livre $livre)
     {
-        $sql = "INSERT INTO livre (`nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`, `lien`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage(), $livre->getLien()];
+        $sql = "INSERT INTO livre (`nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`, `lien`, `pdf`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage(), $livre->getLien(), $livre->getPdf()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;
     }
@@ -337,8 +367,8 @@ class Livre
      */
     public static function update(Livre $livre)
     {
-        $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?,`idgenre` = ?, `image`= ?, `lien` = ? WHERE idlivre = ?";
-        $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage(), $livre->getLien() , $livre->getIdlivre()];
+        $sql = "UPDATE livre SET `nom` = ?, `annee` = ?, `description` = ?, `auteur`= ?, `vente`= ?,`idgenre` = ?, `image`= ?, `lien` = ?, `pdf` = ? WHERE idlivre = ?";
+        $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage(), $livre->getLien(), $livre->getPdf(), $livre->getIdlivre()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;
     }
