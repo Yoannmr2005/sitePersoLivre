@@ -8,6 +8,7 @@
  */
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
+    // Controlleur pour la connexion
     case '':
         // message d'erreur
         $erreurConnexion = "";
@@ -24,6 +25,7 @@ switch ($action) {
         include("vues/login.php");
         echo "<br><p class='text-danger h4 text-center'>${erreurConnexion}</p>";
         break;
+    // Controlleur pour se déconnecter
     case 'disconnect':
         // renvoie à l'accueil si le compte n'est pas connecté
         if (User::isNotConnected()) {
@@ -32,6 +34,7 @@ switch ($action) {
         // Fonction de déconnexion
         User::Disconnect();
         break;
+    // Controlleur pour se déconnecter
     case 'inscription':
         // message d'erreur
         $erreurInscription = "";
@@ -52,6 +55,7 @@ switch ($action) {
             echo "<br><p class='text-danger h4 text-center'>${erreurInscription}</p>";
         }
         break;
+    // Controlleur pour créer un compte admin
     case 'ajoutAdmin':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -76,6 +80,7 @@ switch ($action) {
             echo "<br><p class='text-danger h4 text-center'>${erreurInscriptionAdmin}</p>";
         }
         break;
+    // Controlleur pour rediriger si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();

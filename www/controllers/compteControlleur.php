@@ -8,6 +8,7 @@
  */
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
+    // Controlleur pour afficher les infos du compte (nom, email)
     case '':
         $infoCompte = new User();
         $infoCompte = User::findById($_SESSION["idutilisateur"]);
@@ -18,6 +19,7 @@ switch ($action) {
         }
         include("vues/compte/tableauCompte.php");
         break;
+    // Controlleur pour modifier nos informations de compte (nom, e-mail)
     case 'modifier':
         $infoCompteModification = new User();
         $infoCompteModification = User::findById($_SESSION["idutilisateur"]);
@@ -41,6 +43,7 @@ switch ($action) {
         include("vues/compte/formCompteModif.php");
         echo "<br><p class='text-danger h4 text-center'>${erreurFormModif}</p>";
         break;
+    // Controlleur pour supprimer son compte
     case 'supprimer':
         $deleteUser = new User();
         $deleteUser->setIdutilisateur($_SESSION["idutilisateur"]);
@@ -48,6 +51,7 @@ switch ($action) {
         User::Disconnect();
         User::GoToIndex();
         break;
+    // Controlleur pour rediriger si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();

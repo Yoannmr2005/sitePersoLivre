@@ -8,14 +8,17 @@
  */
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
+    // Controlleur pour afficher la liste perso
     case 'listePerso':
         // Renvoie à l'index si ce n'est pas un compte utilisateur
         if (User::isAdminConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
+        // Récupère les livres de la liste personnelle de l'utilisateur connecté
         $liste = Livre::findAllLivreInListe($_SESSION["idutilisateur"]);
         include("vues/afficherliste.php");
         break;
+    // Controlleur pour ajouter un livre dans la liste perso
     case 'ajouter':
         // Renvoie à l'index si ce n'est pas un compte utilisateur
         if (User::isAdminConnected() || User::isNotConnected()) {
@@ -40,6 +43,7 @@ switch ($action) {
             exit;
         }
         break;
+    // Controlleur pour enlever un livre de la liste perso
     case 'supprimer':
         // Renvoie à l'index si ce n'est pas un compte utilisateur
         if (User::isAdminConnected() || User::isNotConnected()) {
@@ -47,12 +51,14 @@ switch ($action) {
         }
         // Filtre le GET
         $idlivre = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+        // Supprime le livre de la liste
         $delete = new Liste();
         $delete->setIdlivre($idlivre);
         $delete->setIdutilisateur($_SESSION["idutilisateur"]);
         Liste::delete($delete);
         header("location: index.php?uc=listePerso&action=listePerso");
         exit;
+    // Controlleur pour rediriger si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();

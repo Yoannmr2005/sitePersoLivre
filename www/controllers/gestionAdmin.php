@@ -8,22 +8,28 @@
  */
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
+    // Controlleur pour afficher un menu
     case '':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
+        // Inclus la page de vue du menu admin
         include("vues/admin/boutonAdmin.php");
         break;
+    // Controlleur pour afficher un tableau de tous les livres
     case 'listLivres':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
         $dataLivre = new Livre();
+        // Récupère tous les livres de la DB
         $dataLivre = Livre::findAll();
+        // Inclus la page de vue du tableau de livre
         include("vues/admin/tableauLivre.php");
         break;
+    // Controlleur pour ajouter un livre
     case 'ajouterLivre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -38,11 +44,17 @@ switch ($action) {
         $description = filter_input(INPUT_POST, "description", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $btnajouter = filter_input(INPUT_POST, "ajouter", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
         // Message d'erreur
         $erreurAjouterLivre = "";
+
+        // Traitement du formulaire
         if ($btnajouter == "ajouter") {
+            // Vérifie si les champs sont remplis
             if ($nom && $auteur && $annee && $vente && $description && $genre && basename($_FILES["image"]["name"]) != "") {
+                // Vérifie si l'année rentrée est inférieur à l'année actuelle
                 if ($annee <= date("Y")) {
+                    // Vérifie si la vente rentrée est supérieur à 0
                     if ($vente > 0) {
                         // Vérifie si le genre sélectionné existe
                         if (Genre::findById($genre) != []) {
@@ -61,7 +73,9 @@ switch ($action) {
                                         $dimensions = getimagesize($target_file);
                                         // Vérifie la taille de l'image (nécessaire pour l'affichage)
                                         if (($dimensions[0] == "150") && ($dimensions[1] == "200")) {
+                                            // Crée une nouvelle instance de livre
                                             $ajouterLivre = new Livre();
+                                            // Set les données de l'instance
                                             $ajouterLivre->setNom($nom);
                                             $ajouterLivre->setAuteur($auteur);
                                             $ajouterLivre->setAnnee($annee);
@@ -69,10 +83,12 @@ switch ($action) {
                                             $ajouterLivre->setImage(basename($_FILES["image"]["name"]));
                                             $ajouterLivre->setDescription($description);
                                             $ajouterLivre->setIdgenre($genre);
+                                            // Ajoute le livre puis redirige vers la liste de livres
                                             Livre::add($ajouterLivre);
                                             header("location: index.php?uc=admin&action=listLivres");
                                             exit;
                                         } else {
+                                            // Supprime le livre qui vient d'etre ajouté car il n'est pas à la bonne taille
                                             unlink($target_file);
                                             $erreurAjouterLivre = "La taille de l'image doit etre de 150x200 pixels";
                                         }
@@ -98,16 +114,20 @@ switch ($action) {
                 $erreurAjouterLivre = "Il manque des données";
             }
         }
+        // Inclus la vue
         include("vues/admin/ajouterLivre.php");
+        // Affiche le message d'erreur
         echo "<br><p class='text-danger h4 text-center'>${erreurAjouterLivre}</p>";
         break;
+    // Controlleur pour modifier un livre
     case 'modifierLivre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
-
+        // Récupère l'id dans l'URL
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+        // Récupère les données du livre avec l'id
         $modifierLivre = new Livre();
         $modifierLivre = Livre::findById($id);
         // Renvoie à la gestion si l'id de l'url n'existe pas dans la DB
@@ -126,7 +146,7 @@ switch ($action) {
         $modifier = filter_input(INPUT_POST, "modifier", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         // Message d'erreur
         $erreurModification = "";
-
+        // Traitement du formulaire
         if ($modifier == "modifier") {
             if ($nom && $auteur && $annee && $vente && $genre && $description) {
                 if ($annee <= date("Y")) {
@@ -212,14 +232,17 @@ switch ($action) {
         include("vues/admin/modifierLivre.php");
         echo "<br><p class='text-danger h4 text-center'>${erreurModification}</p>";
         break;
+    // Controlleur pour supprimer un livre
     case 'supprimerLivre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
-
+        // Récupère l'id de l'URL
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+        // Récupère les données du livre avec son id
         $dataLivre = Livre::findById($id);
+        // Supprime le livre de la DB et l'image
         $supprimerLivre = new Livre();
         $supprimerLivre->setIdlivre($id);
         unlink("img/" . $dataLivre->getImage());
@@ -227,15 +250,18 @@ switch ($action) {
         header("location: index.php?uc=admin&action=listLivres");
         exit;
         break;
+    // Controlleur pour afficher un tableau de tous les genres
     case 'listGenres':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
             User::GoToIndex();
         }
+        // Récupère les données de genre
         $dataGenre = new Genre();
         $dataGenre = Genre::findAll();
         include("vues/admin/tableauGenre.php");
         break;
+    // Controlleur pour ajouter un genre
     case 'ajouterGenre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -266,6 +292,7 @@ switch ($action) {
         include("vues/admin/ajouterGenre.php");
         echo "<br><p class='text-danger h4 text-center'>${erreurAjouterGenre}</p>";
         break;
+    // Controlleur pour modifier un genre
     case 'modifierGenre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -300,6 +327,7 @@ switch ($action) {
         include("vues/admin/modifierGenre.php");
         echo "<br><p class='text-danger h4 text-center'>${erreurModifGenre}</p>";
         break;
+    // Controlleur pour supprimer un genre
     case 'supprimerGenre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -313,6 +341,7 @@ switch ($action) {
         header("location: index.php?uc=admin&action=listGenres");
         exit;
         break;
+    // Controlleur pour rediriger si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();
