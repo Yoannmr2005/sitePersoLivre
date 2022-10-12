@@ -35,5 +35,18 @@
             <h3 class="text-secondary">Genre :</h3>
             <?= $genreLivre->genre ?>
         </div>
+        <?php
+        if (User::isUserConnected()) {
+            if ($livre->getLien() == "") {
+        ?>
+                <p class='text-danger h4 text-center'>Il n'y a aucun audiobook sur ce livre</p>
+            <?php
+            } else {
+            ?>
+                <iframe height="300" src="<?= $livre->getLien() ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <?php
+            }
+        }
+        ?>
     </div>
 </div>

@@ -43,6 +43,7 @@ switch ($action) {
         $image = filter_input(INPUT_POST, "image", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $description = filter_input(INPUT_POST, "description", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $lien = filter_input(INPUT_POST, "lien", FILTER_VALIDATE_URL);
         $btnajouter = filter_input(INPUT_POST, "ajouter", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
         // Message d'erreur
@@ -51,7 +52,7 @@ switch ($action) {
         // Traitement du formulaire
         if ($btnajouter == "ajouter") {
             // Vérifie si les champs sont remplis
-            if ($nom && $auteur && $annee && $vente && $description && $genre && basename($_FILES["image"]["name"]) != "") {
+            if ($nom && $auteur && $annee && $vente && $description && $lien && $genre && basename($_FILES["image"]["name"]) != "") {
                 // Vérifie si l'année rentrée est inférieur à l'année actuelle
                 if ($annee <= date("Y")) {
                     // Vérifie si la vente rentrée est supérieur à 0
@@ -80,6 +81,7 @@ switch ($action) {
                                             $ajouterLivre->setAuteur($auteur);
                                             $ajouterLivre->setAnnee($annee);
                                             $ajouterLivre->setVente($vente);
+                                            $ajouterLivre->setLien($lien);
                                             $ajouterLivre->setImage(basename($_FILES["image"]["name"]));
                                             $ajouterLivre->setDescription($description);
                                             $ajouterLivre->setIdgenre($genre);
@@ -140,6 +142,7 @@ switch ($action) {
         $auteur = filter_input(INPUT_POST, "auteur", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $annee = filter_input(INPUT_POST, "annee", FILTER_VALIDATE_INT);
         $vente = filter_input(INPUT_POST, "vente", FILTER_VALIDATE_INT);
+        $lien = filter_input(INPUT_POST, "lien", FILTER_VALIDATE_URL);
         $image = filter_input(INPUT_POST, "image", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $description = filter_input(INPUT_POST, "description", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -148,7 +151,7 @@ switch ($action) {
         $erreurModification = "";
         // Traitement du formulaire
         if ($modifier == "modifier") {
-            if ($nom && $auteur && $annee && $vente && $genre && $description) {
+            if ($nom && $auteur && $annee && $vente && $lien && $genre && $description) {
                 if ($annee <= date("Y")) {
                     if ($vente > 0) {
                         // Vérifie si le genre sélectionné existe
@@ -183,6 +186,7 @@ switch ($action) {
                                                 $modification->setDescription($description);
                                                 $modification->setIdgenre($genre);
                                                 $modification->setIdlivre($id);
+                                                $modification->setLien($lien);
                                                 $modification->setImage(basename($_FILES["image"]["name"]));
                                                 Livre::update($modification);
                                                 header("location: index.php?uc=admin&action=listLivres");
@@ -211,6 +215,7 @@ switch ($action) {
                                 $modification->setDescription($description);
                                 $modification->setIdgenre($genre);
                                 $modification->setIdlivre($id);
+                                $modification->setLien($lien);
                                 $modification->setImage($modifierLivre->getImage());
                                 Livre::update($modification);
                                 header("location: index.php?uc=admin&action=listLivres");

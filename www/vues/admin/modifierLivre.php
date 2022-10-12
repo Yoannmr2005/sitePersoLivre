@@ -19,6 +19,10 @@
                 <label for="floatingInput">Auteur</label>
             </div>
             <div class="form-floating">
+                <input type="text" class="form-control" id="lien" name="lien" value="<?= $modifierLivre->getLien() ?>" placeholder="Lien de l'audiobook (https:// obligatoire)">
+                <label for="floatingInput">Lien de l'audiobook (https:// obligatoire)</label>
+            </div>
+            <div class="form-floating">
                 <textarea class="form-control" style="height: 200px;" name="description" id="description" cols="30" rows="10" placeholder="Description"><?= $modifierLivre->getDescription() ?></textarea>
                 <label for="floatingInput">Description</label>
             </div>

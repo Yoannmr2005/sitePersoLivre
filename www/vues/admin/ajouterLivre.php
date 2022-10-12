@@ -27,6 +27,10 @@
                 <label for="floatingInput">Description</label>
             </div>
             <div class="form-floating">
+                <input type="text" class="form-control" id="lien" name="lien" value="<?= $lien ?>" placeholder="Lien de l'audiobook (https:// obligatoire)">
+                <label for="floatingInput">Lien de l'audiobook (https:// obligatoire)</label>
+            </div>
+            <div class="form-floating">
                 <input type="number" class="form-control" id="annee" name="annee" value="<?= $annee ?>" placeholder="Annee">
                 <label for="floatingInput">Annee</label>
             </div>
