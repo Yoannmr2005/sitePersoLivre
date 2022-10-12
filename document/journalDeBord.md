@@ -142,10 +142,28 @@ Aujourd'hui, j'ai finaliser la modification du livre en regardant si il y a un i
 
 Bonne journée ou je suis arrivé à la fin du projet néanmois, il me reste la documentation et la présentation à faire.
 
-### Jour 8 : Mercredi 12 Octobre
+## Jour 8 : Mercredi 12 Octobre
 
 ### Objectif
 
 - optimiser le code si je vois des choses à faire
 - documentation (procédure pour faire marcher le site)
 - présentation PowerPoint
+
+### Déroulement
+
+Aujourd'hui, je ne savais pas quoi faire donc j'ai commenté mon code ainsi que le manuel d'installation puis j'ai eu l'idée d'inclure un audio du livre dans la page de détail, ce que j'ai fait le matin et au début d'après-midi.
+Ensuite, j'ai décidé d'également ajouter un bouton qui permet de télécharger le pdf du livre.
+On peut maintenant télecharger le pdf néanmois il reste à ajouter le champ pdf dans la modification et l'ajout de livre.
+
+### Bilan
+
+Aujourd'hui a été une journée fructueuse où j'ai pu améliorer mon projet avec des éléments inprévues.
+
+## Jour 9 : Jeudi 13 Octobre
+
+### Objectif
+
+- Modifier un pdf dans la modification de livre 
+- Ajouter un pdf dans l'ajout de livre
+- PowerPoint ? 
