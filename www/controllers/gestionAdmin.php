@@ -341,7 +341,7 @@ switch ($action) {
         header("location: index.php?uc=admin&action=listGenres");
         exit;
         break;
-    // Controlleur pour rediriger si l'URL est inconnue
+    // Redirige si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();

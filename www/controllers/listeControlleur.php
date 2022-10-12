@@ -58,7 +58,7 @@ switch ($action) {
         Liste::delete($delete);
         header("location: index.php?uc=listePerso&action=listePerso");
         exit;
-    // Controlleur pour rediriger si l'URL est inconnue
+    // Redirige si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();

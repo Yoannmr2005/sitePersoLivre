@@ -7,6 +7,9 @@
  * Page : Création de la session
  */
 
+// Démarre la session
+session_start();
+
 // Créer la session pour le compte si elle n'existe pas
 if (!isset($_SESSION["compte"])) {
     $_SESSION["compte"] = array();

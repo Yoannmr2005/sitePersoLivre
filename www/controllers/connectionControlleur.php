@@ -80,7 +80,7 @@ switch ($action) {
             echo "<br><p class='text-danger h4 text-center'>${erreurInscriptionAdmin}</p>";
         }
         break;
-    // Controlleur pour rediriger si l'URL est inconnue
+    // Redirige si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();

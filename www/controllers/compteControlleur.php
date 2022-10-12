@@ -51,7 +51,7 @@ switch ($action) {
         User::Disconnect();
         User::GoToIndex();
         break;
-    // Controlleur pour rediriger si l'URL est inconnue
+    // Redirige si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();
