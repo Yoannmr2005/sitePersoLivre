@@ -12,7 +12,8 @@
 'sudo chmod 777 img/'
 
 ### Etape 4 :
-- Maintenant c'est fini, vous pouvez ouvrir un navigateur et aller sur le site.
+- Changer le 'upload_max_filesize' à 10M.
+- Vérifier si file_uploads est 'On'
 
 ### Informations :
 Il existe déjà 3 comptes :

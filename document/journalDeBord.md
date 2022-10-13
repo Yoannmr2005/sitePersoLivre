@@ -166,4 +166,5 @@ Aujourd'hui a été une journée fructueuse où j'ai pu améliorer mon projet av
 
 - Modifier un pdf dans la modification de livre 
 - Ajouter un pdf dans l'ajout de livre
+- Supprimer un pdf en meme temps que le livre et l'image
 - PowerPoint ? 
