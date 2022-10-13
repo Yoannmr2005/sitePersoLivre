@@ -496,4 +496,21 @@ class Livre
             return "ok";
         }
     }
+
+    /**
+     * Vérifie si le nom de livre en paramètre existe déjà dans la DB
+     *
+     * @param string $nom
+     * @return boolean (true si il existe, sinon false)
+     */
+    public static function VerifyIfNameExist($nom)
+    {
+        $dataLivre = Livre::findAll();
+        foreach ($dataLivre as $livre) {
+            if ($livre->getNom() == $nom) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

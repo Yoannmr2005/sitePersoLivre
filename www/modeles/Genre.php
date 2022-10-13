@@ -170,8 +170,7 @@ class Genre
         $statement = MonPdo::getInstance()->prepare($sql);
         $statement->execute($param);
         $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Genre');
-        $statement->fetch();
-        if ($statement == []) {
+        if ($statement == false) {
             return true;
         } else {
             return false;

@@ -8,7 +8,7 @@
  */
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 switch ($action) {
-        // Controlleur pour afficher un menu
+    // Controlleur pour afficher un menu
     case '':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -17,7 +17,7 @@ switch ($action) {
         // Inclus la page de vue du menu admin
         include("vues/admin/boutonAdmin.php");
         break;
-        // Controlleur pour afficher un tableau de tous les livres
+    // Controlleur pour afficher un tableau de tous les livres
     case 'listLivres':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -29,7 +29,7 @@ switch ($action) {
         // Inclus la page de vue du tableau de livre
         include("vues/admin/tableauLivre.php");
         break;
-        // Controlleur pour ajouter un livre
+    // Controlleur pour ajouter un livre
     case 'ajouterLivre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -53,73 +53,77 @@ switch ($action) {
         // Traitement du formulaire
         if ($btnajouter == "ajouter") {
             // Vérifie si les champs sont remplis
-            if ($nom && $auteur && $annee && $vente && $description && $lien && $genre && basename($_FILES["image"]["name"]) != "" &&  basename($_FILES["pdf"]["name"]) != "") {
+            if ($nom && $auteur && $annee && $vente && $description && $lien && $genre && basename($_FILES["image"]["name"]) != "" && basename($_FILES["pdf"]["name"]) != "") {
                 // Vérifie si l'année rentrée est inférieur à l'année actuelle
-                if ($annee <= date("Y")) {
-                    // Vérifie si la vente rentrée est supérieur à 0
-                    if ($vente > 0) {
-                        // Vérifie si le genre sélectionné existe
-                        if (Genre::findById($genre) != []) {
-                            // Vérifie si le pdf est ok
-                            $msgVerifyPdf = Livre::VerifyPdf(basename($_FILES["pdf"]["name"]), $_FILES["pdf"]["tmp_name"]);
-                            if ($msgVerifyPdf == "ok") {
-                                // Chemin d'accèes au images
-                                $target_dir = "img/";
-                                // Récupère la destination du fichier (ex: img/batman.png)
-                                $target_file = $target_dir . basename($_FILES["image"]["name"]);
-                                // Récupère l'extension de l'image dans le formulaire
-                                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                                // Regarde si le fichier existe
-                                if (file_exists($target_file) == false) {
-                                    // Vérifie si le fichier est bien une image
-                                    if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "jfif") {
-                                        // ajoute la nouvelle image dans le dossier img     
-                                        if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                                            // Récupère la taille de l'image
-                                            $dimensions = getimagesize($target_file);
-                                            // Vérifie la taille de l'image (nécessaire pour l'affichage)
-                                            if (($dimensions[0] == "150") && ($dimensions[1] == "200")) {
-                                                // Crée une nouvelle instance de livre
-                                                $ajouterLivre = new Livre();
-                                                // Set les données de l'instance
-                                                $ajouterLivre->setNom($nom);
-                                                $ajouterLivre->setAuteur($auteur);
-                                                $ajouterLivre->setAnnee($annee);
-                                                $ajouterLivre->setVente($vente);
-                                                $ajouterLivre->setLien($lien);
-                                                $ajouterLivre->setImage(basename($_FILES["image"]["name"]));
-                                                $ajouterLivre->setPdf(basename($_FILES["pdf"]["name"]));
-                                                $ajouterLivre->setDescription($description);
-                                                $ajouterLivre->setIdgenre($genre);
-                                                // Ajoute le livre puis redirige vers la liste de livres
-                                                Livre::add($ajouterLivre);
-                                                header("location: index.php?uc=admin&action=listLivres");
-                                                exit;
+                if (Livre::VerifyIfNameExist($nom)) {
+                    if ($annee <= date("Y")) {
+                        // Vérifie si la vente rentrée est supérieur à 0
+                        if ($vente > 0) {
+                            // Vérifie si le genre sélectionné existe
+                            if (Genre::findById($genre) != []) {
+                                // Vérifie si le pdf est ok
+                                $msgVerifyPdf = Livre::VerifyPdf(basename($_FILES["pdf"]["name"]), $_FILES["pdf"]["tmp_name"]);
+                                if ($msgVerifyPdf == "ok") {
+                                    // Chemin d'accèes au images
+                                    $target_dir = "img/";
+                                    // Récupère la destination du fichier (ex: img/batman.png)
+                                    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                                    // Récupère l'extension de l'image dans le formulaire
+                                    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                                    // Regarde si le fichier existe
+                                    if (file_exists($target_file) == false) {
+                                        // Vérifie si le fichier est bien une image
+                                        if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "jfif") {
+                                            // ajoute la nouvelle image dans le dossier img     
+                                            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                                                // Récupère la taille de l'image
+                                                $dimensions = getimagesize($target_file);
+                                                // Vérifie la taille de l'image (nécessaire pour l'affichage)
+                                                if (($dimensions[0] == "150") && ($dimensions[1] == "200")) {
+                                                    // Crée une nouvelle instance de livre
+                                                    $ajouterLivre = new Livre();
+                                                    // Set les données de l'instance
+                                                    $ajouterLivre->setNom($nom);
+                                                    $ajouterLivre->setAuteur($auteur);
+                                                    $ajouterLivre->setAnnee($annee);
+                                                    $ajouterLivre->setVente($vente);
+                                                    $ajouterLivre->setLien($lien);
+                                                    $ajouterLivre->setImage(basename($_FILES["image"]["name"]));
+                                                    $ajouterLivre->setPdf(basename($_FILES["pdf"]["name"]));
+                                                    $ajouterLivre->setDescription($description);
+                                                    $ajouterLivre->setIdgenre($genre);
+                                                    // Ajoute le livre puis redirige vers la liste de livres
+                                                    Livre::add($ajouterLivre);
+                                                    header("location: index.php?uc=admin&action=listLivres");
+                                                    exit;
+                                                } else {
+                                                    // Supprime le livre qui vient d'etre ajouté car il n'est pas à la bonne taille
+                                                    unlink($target_file);
+                                                    $erreurAjouterLivre = "La taille de l'image doit etre de 150x200 pixels";
+                                                }
                                             } else {
-                                                // Supprime le livre qui vient d'etre ajouté car il n'est pas à la bonne taille
-                                                unlink($target_file);
-                                                $erreurAjouterLivre = "La taille de l'image doit etre de 150x200 pixels";
+                                                $erreurAjouterLivre = "Erreur lors de l'ajout de l'image";
                                             }
                                         } else {
-                                            $erreurAjouterLivre = "Erreur lors de l'ajout de l'image";
+                                            $erreurAjouterLivre = "Je n'accepte pas ce format d'image";
                                         }
                                     } else {
-                                        $erreurAjouterLivre = "Je n'accepte pas ce format d'image";
+                                        $erreurAjouterLivre = "L'image est déjà utilisée par un autre livre";
                                     }
                                 } else {
-                                    $erreurAjouterLivre = "L'image est déjà utilisée par un autre livre";
+                                    $erreurAjouterLivre = $msgVerifyPdf;
                                 }
                             } else {
-                                $erreurAjouterLivre = $msgVerifyPdf;
+                                $erreurAjouterLivre = "Le genre n'existe pas";
                             }
                         } else {
-                            $erreurAjouterLivre = "Le genre n'existe pas";
+                            $erreurAjouterLivre = "La vente d'un livre ne peut pas etre inférrieur à 0";
                         }
                     } else {
-                        $erreurAjouterLivre = "La vente d'un livre ne peut pas etre inférrieur à 0";
+                        $erreurAjouterLivre = "Le livre ne peut pas venir du futur !";
                     }
                 } else {
-                    $erreurAjouterLivre = "Le livre ne peut pas venir du futur !";
+                    $erreurAjouterLivre = "Le nom du livre est déjà utilisée";
                 }
             } else {
                 $erreurAjouterLivre = "Il manque des données";
@@ -130,7 +134,7 @@ switch ($action) {
         // Affiche le message d'erreur
         echo "<br><p class='text-danger h4 text-center'>${erreurAjouterLivre}</p>";
         break;
-        // Controlleur pour modifier un livre
+    // Controlleur pour modifier un livre
     case 'modifierLivre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -214,7 +218,7 @@ switch ($action) {
         include("vues/admin/modifierLivre.php");
         echo "<br><p class='text-danger h4 text-center'>${erreurModification}</p>";
         break;
-        // Controlleur pour supprimer un livre
+    // Controlleur pour supprimer un livre
     case 'supprimerLivre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -227,13 +231,15 @@ switch ($action) {
         // Supprime le livre de la DB et l'image
         $supprimerLivre = new Livre();
         $supprimerLivre->setIdlivre($id);
+        // Supprime le livre
         unlink("img/" . $dataLivre->getImage());
+        // Supprime le pdf
         unlink("pdf/" . $dataLivre->getPdf());
         Livre::delete($supprimerLivre);
         header("location: index.php?uc=admin&action=listLivres");
         exit;
         break;
-        // Controlleur pour afficher un tableau de tous les genres
+    // Controlleur pour afficher un tableau de tous les genres
     case 'listGenres':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -244,7 +250,7 @@ switch ($action) {
         $dataGenre = Genre::findAll();
         include("vues/admin/tableauGenre.php");
         break;
-        // Controlleur pour ajouter un genre
+    // Controlleur pour ajouter un genre
     case 'ajouterGenre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -258,7 +264,7 @@ switch ($action) {
 
         if ($btnAjouterGenre == "ajouterGenre") {
             if ($nom) {
-                if (Genre::GenreAlreadyExist($nom) == false) {
+                if (Genre::GenreAlreadyExist($nom) == true) {
                     // Ajoute un genre
                     $ajouterGenre = new Genre();
                     $ajouterGenre->setGenre($nom);
@@ -275,7 +281,7 @@ switch ($action) {
         include("vues/admin/ajouterGenre.php");
         echo "<br><p class='text-danger h4 text-center'>${erreurAjouterGenre}</p>";
         break;
-        // Controlleur pour modifier un genre
+    // Controlleur pour modifier un genre
     case 'modifierGenre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -310,7 +316,7 @@ switch ($action) {
         include("vues/admin/modifierGenre.php");
         echo "<br><p class='text-danger h4 text-center'>${erreurModifGenre}</p>";
         break;
-        // Controlleur pour supprimer un genre
+    // Controlleur pour supprimer un genre
     case 'supprimerGenre':
         // renvoie à l'accueil si le compte n'est pas admin
         if (User::isUserConnected() || User::isNotConnected()) {
@@ -324,7 +330,7 @@ switch ($action) {
         header("location: index.php?uc=admin&action=listGenres");
         exit;
         break;
-        // Redirige si l'URL est inconnue
+    // Redirige si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
         User::GoToIndex();
