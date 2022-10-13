@@ -167,4 +167,14 @@ Aujourd'hui a été une journée fructueuse où j'ai pu améliorer mon projet av
 - Modifier un pdf dans la modification de livre 
 - Ajouter un pdf dans l'ajout de livre
 - Supprimer un pdf en meme temps que le livre et l'image
-- PowerPoint ? 
+- PowerPoint ?
+
+### Déroulement
+
+Aujourd'hui, j'ai fait l'ajout, la modification et la suppression de fichier pdf. 
+J'ai également corrigé un bug qui permettait de créer un genre avec un nom qui existait déjà.
+Finalement, j'ai commencer mon PowerPoint pour la présentation de Mercredi prochain.
+
+### Bilan 
+
+Bonne journée ou j'ai peut terminé les fonctionnalités non-prévues au début du projet ainsi que corriger un énorme bug et commencer ma présentation.
