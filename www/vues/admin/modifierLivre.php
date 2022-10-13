@@ -37,6 +37,9 @@
             <label for="floatingInput">Image (150x200 pixel) (non-obligatoire)</label>
             <input type="file" class="form-control" name="image">
 
+            <label for="floatingInput">Livre en format Pdf (non-obligatoire)</label>
+            <input type="file" class="form-control" name="pdf">
+
             <div class="form-floating">
                 <input type="number" class="form-control" id="vente" name="vente" value="<?= $modifierLivre->getVente() ?>" placeholder="Vente">
                 <label for="floatingInput">Vente</label>

@@ -243,7 +243,7 @@ class Livre
      * Get lien d'un audiobook
      *
      * @return  string
-     */ 
+     */
     public function getLien()
     {
         return $this->lien;
@@ -255,7 +255,7 @@ class Livre
      * @param  string  $lien  lien d'un audiobook
      *
      * @return  self
-     */ 
+     */
     public function setLien(string $lien)
     {
         $this->lien = $lien;
@@ -267,7 +267,7 @@ class Livre
      * Get nom du fichier pdf
      *
      * @return  string
-     */ 
+     */
     public function getPdf()
     {
         return $this->pdf;
@@ -279,14 +279,14 @@ class Livre
      * @param  string  $pdf  nom du fichier pdf
      *
      * @return  self
-     */ 
+     */
     public function setPdf(string $pdf)
     {
         $this->pdf = $pdf;
 
         return $this;
     }
-    
+
     /**
      * Retourne l'ensemble des livres
      *
@@ -353,7 +353,7 @@ class Livre
      */
     public static function add(Livre $livre)
     {
-        $sql = "INSERT INTO livre (`nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`, `lien`, `pdf`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO livre (`nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`, `lien`, `pdf`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $param = [$livre->getNom(), $livre->getAnnee(), $livre->getDescription(), $livre->getAuteur(), $livre->getVente(), $livre->getIdgenre(), $livre->getImage(), $livre->getLien(), $livre->getPdf()];
         $query = MonPdo::dbRun($sql, $param);
         return $query;
@@ -418,5 +418,82 @@ class Livre
         $statement->execute($param);
         $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
         return $statement->fetchAll();
+    }
+
+    /**
+     * Vérifie le fichier pdf envoyer dans le formulaire
+     *
+     * @param string $pdf_name
+     * @param string $pdf_tmr_name
+     * @return string
+     */
+    public static function VerifyPdf($pdf_name, $pdf_tmr_name)
+    {
+        $target_dir = "pdf/";
+        // Récupère la destination du fichier (ex: pdf/batman.pdf)
+        $target_file = $target_dir . $pdf_name;
+        // Récupère l'extension de l'image dans le formulaire
+        $pdfFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        // Regarde si le fichier existe
+        if (file_exists($target_file)) {
+            return "Ce pdf est déjà utilisée par un autre livre";
+        }
+        // Vérifie si le fichier est bien une image
+        if ($pdfFileType != "pdf") {
+            return "Ce n'est pas un fichier pdf";
+        }
+        // ajoute le fichier pdf dans le dossier pdf, retourne un message s'il y a une erreur   
+        if (move_uploaded_file($pdf_tmr_name, $target_file) == false) {
+            return "Erreur lors de l'ajout du fichier pdf";
+        }
+        return "ok";
+    }
+
+    /**
+     * Vérifie le fichier image envoyer dans le formulaire
+     *
+     * @param string $img_name
+     * @param string $img_tmp_name
+     * @param object $dataLivre
+     * @return string
+     */
+    public static function VerifyImage($img_name, $img_tmp_name, $dataLivre)
+    {
+        if ($img_name != "") {
+            $target_dir = "img/";
+            // récupère l'image à supprimer
+            $filename = $target_dir . $dataLivre->getImage();
+            // Récupère la destination du fichier (ex: img/batman.png)
+            $target_file = $target_dir . $img_name;
+            // Récupère l'extension de l'image dans le formulaire
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            // Regarde si le fichier existe
+            if (file_exists($target_file)) {
+                return "Cette image est déjà utilisée par un autre livre";
+            }
+            // Vérifie si le fichier est bien une image
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "jfif") {
+                return "L'extension du fihier n'est pas accépté (jpg, png, jpeg, gif ou jfif)";
+            }
+            // ajoute la nouvelle image dans le dossier img
+            if (move_uploaded_file($img_tmp_name, $target_file) == false) {
+                return "Erreur lors de l'upload de la nouvelle image";
+            }
+            // Récupère la taille de l'image
+            $dimensions = getimagesize($target_file);
+            // Vérifie la taille de l'image (nécessaire pour l'affichage)
+            if (($dimensions[0] != "150") && ($dimensions[1] != "200")) {
+                // Supprime la nouvelle image puisqu'elle n'est pas de la bonne taille
+                unlink($target_file);
+                return "La taille de l'image doit etre de 150x200 pixels";
+            }
+            // Supprime l'ancienne image dans le dossier img
+            unlink($filename);
+            $_SESSION["nomImage"] = $img_name;
+            return "ok";
+        } else {
+            $_SESSION["nomImage"] = $dataLivre->getImage();
+            return "ok";
+        }
     }
 }
