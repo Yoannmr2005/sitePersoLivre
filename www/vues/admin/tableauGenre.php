@@ -1,12 +1,12 @@
-<?php
-include("vues/compte/modal.html")
-?>
 <!--
   Auteur : Yoann Meier
   Site de livre
   Version : 3.0
   Page : Page de vue qui affiche un tableau de tous les genres
 -->
+<?php
+include("vues/compte/modal.html")
+?>
 <div class="container text-center">
     <h1>Genres</h1>
     <a href="index.php?uc=admin&action=ajouterGenre" class="btn btn-success btn-rounded" style="float: right;" role="button">Ajouter un genre</a>
@@ -61,14 +61,3 @@ include("vues/compte/modal.html")
         </table>
     </div>
 </div>
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>

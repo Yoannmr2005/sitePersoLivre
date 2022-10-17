@@ -49,6 +49,7 @@ include("vues/compte/modal.html")
     </div>
 </div>
 <script>
+    // Viens de : https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_delete_modal
     // Get the modal
     var modal = document.getElementById('id01');
 

@@ -1,12 +1,12 @@
-<?php
-include("vues/compte/modal.html")
-?>
 <!--
   Auteur : Yoann Meier
   Site de livre
   Version : 3.0
   Page : Page de vue qui affiche un tableau de tous les livres
 -->
+<?php
+include("vues/compte/modal.html")
+?>
 <div class="container text-center">
     <h1>Livres</h1>
     <a href="index.php?uc=admin&action=ajouterLivre" class="btn btn-success btn-rounded" style="float: right;" role="button">Ajouter un livre</a>
@@ -65,18 +65,6 @@ include("vues/compte/modal.html")
             <?php
             }
             ?>
-
         </table>
     </div>
 </div>
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
