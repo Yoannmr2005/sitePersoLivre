@@ -43,9 +43,9 @@
             <?= $livre->getAuteur() ?>
             <h3 class="text-secondary">Description :</h3>
             <?= $livre->getDescription() ?>
-            <h3 class="text-secondary">Année de sortie</h3>
+            <h3 class="text-secondary">Année de sortie :</h3>
             <?= $livre->getAnnee() ?>
-            <h3 class="text-secondary">Nombre de livres vendues :</h3>
+            <h3 class="text-secondary">Quantité de livres vendus :</h3>
             <?= Livre::ChangeNumberFormat($livre->getVente()) ?>
             <h3 class="text-secondary">Genre :</h3>
             <?= $genreLivre->genre ?>
