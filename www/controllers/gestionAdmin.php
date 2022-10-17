@@ -264,7 +264,7 @@ switch ($action) {
 
         if ($btnAjouterGenre == "ajouterGenre") {
             if ($nom) {
-                if (Genre::GenreAlreadyExist($nom) == true) {
+                if (Genre::GenreAlreadyExist($nom) == false) {
                     // Ajoute un genre
                     $ajouterGenre = new Genre();
                     $ajouterGenre->setGenre($nom);

@@ -163,17 +163,14 @@ class Genre
      * @param string $genre
      * @return boolean (true s'il existe, sinon false)
      */
-    public static function GenreAlreadyExist($genre)
+    public static function GenreAlreadyExist($nom)
     {
-        $sql = "SELECT `idgenre`, `genre` FROM genre WHERE genre = ?";
-        $param = [$genre];
-        $statement = MonPdo::getInstance()->prepare($sql);
-        $statement->execute($param);
-        $statement->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Genre');
-        if ($statement == false) {
-            return true;
-        } else {
-            return false;
+        $dataGenre = Genre::findAll();
+        foreach ($dataGenre as $genre) {
+            if ($genre->getGenre() == $nom) {
+                return true;
+            }
         }
+        return false;
     }
 }
