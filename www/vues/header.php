@@ -41,9 +41,7 @@
                         ?>
                             <li><a href="index.php?uc=listePerso&action=listePerso" class="nav-link px-2 text-white">Ma liste</a></li>
                         <?php
-                        } else {
-                            echo "";
-                        }
+                        } 
                         ?>
                         <?php
                         if (isset($_SESSION["idutilisateur"])) {

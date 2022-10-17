@@ -18,8 +18,6 @@
         <input type="password" class="form-control" id="mdp" name="mdp" placeholder="Mot de passe">
         <label for="floatingPassword">Mot de passe</label>
       </div>
-      <div class="checkbox mb-3">
-      </div>
       <button class="w-100 btn btn-lg btn-primary" name="connexion" value="connexion" type="submit">Se connecter</button>
     </form>
     <br>
