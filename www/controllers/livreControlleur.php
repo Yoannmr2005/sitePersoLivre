@@ -39,6 +39,13 @@ switch ($action) {
         $genreLivre = Genre::findById($livre->getIdgenre());
         include("vues/infoLivre.php");
         break;
+    case 'pdf':
+        // Récupère l'id dans l'URL
+        $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+        $_SESSION["msgErreurTelechargementPdf"] = "<p class='text-danger h5'>Vous devez etre connecté pour pouvoir télécharger le pdf</p>";
+        header("location: index.php?uc=liste&action=livre&id=$id");
+        exit;
+        break;
     // Redirige si l'URL est inconnue
     default:
         // Redirige à l'accueil si l'action est incorrecte
