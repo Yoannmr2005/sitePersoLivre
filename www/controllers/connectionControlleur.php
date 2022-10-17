@@ -34,7 +34,7 @@ switch ($action) {
         // Fonction de déconnexion
         User::Disconnect();
         break;
-    // Controlleur pour se déconnecter
+    // Controlleur pour s'inscrire
     case 'inscription':
         // message d'erreur
         $erreurInscription = "";

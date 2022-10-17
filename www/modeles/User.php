@@ -236,7 +236,7 @@ class User
     }
 
     /**
-     * fonction qui détruit la séssion, nous déconnectons
+     * fonction qui détruit la séssion, nous déconnecté
      *
      * @return void
      */

@@ -438,11 +438,11 @@ class Livre
         if (file_exists($target_file)) {
             return "Ce pdf est déjà utilisée par un autre livre";
         }
-        // Vérifie si le fichier est bien une image
+        // Vérifie si le fichier est bien un fichier pdf
         if ($pdfFileType != "pdf") {
             return "Ce n'est pas un fichier pdf";
         }
-        // ajoute le fichier pdf dans le dossier pdf, retourne un message s'il y a une erreur   
+        // ajoute le fichier pdf dans le dossier pdf, retourne un message s'il y a une erreur de téléchargement
         if (move_uploaded_file($pdf_tmr_name, $target_file) == false) {
             return "Erreur lors de l'ajout du fichier pdf";
         }

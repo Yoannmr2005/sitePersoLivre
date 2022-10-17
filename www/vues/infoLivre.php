@@ -15,7 +15,15 @@
             if (User::isUserConnected()) {
             ?>
                 <a href="index.php?uc=listePerso&action=ajouter&id=<?= $livre->getIdlivre() ?>" class="btn btn-success link-dark text-decoration-none" role="button" style="width: 270px;">Ajouter dans la liste personnelle</a>
-                <br><br>
+                <br>
+                <?php
+                // Affiche une erreur si le livre est déjà dans la liste perso
+                if (isset($_SESSION["msgLivreDejaDansListe"]) && $_SESSION["msgLivreDejaDansListe"] != "") {
+                    echo $_SESSION['msgLivreDejaDansListe'];
+                    $_SESSION['msgLivreDejaDansListe'] = "";
+                }
+                ?>
+                <br>
                 <a href="pdf/<?= $livre->getPdf() ?>" download class="btn btn-warning link-dark text-decoration-none" role="button" style="width: 270px;">Télecharger le pdf du livre</a>
             <?php
             } else {
@@ -27,11 +35,6 @@
             if (isset($_SESSION["msgErreurTelechargementPdf"]) && $_SESSION["msgErreurTelechargementPdf"] != "") {
                 echo $_SESSION['msgErreurTelechargementPdf'];
                 $_SESSION['msgErreurTelechargementPdf'] = "";
-            }
-            // Affiche une erreur si le livre est déjà dans la liste perso
-            if (isset($_SESSION["msgLivreDejaDansListe"]) && $_SESSION["msgLivreDejaDansListe"] != "") {
-                echo $_SESSION['msgLivreDejaDansListe'];
-                $_SESSION['msgLivreDejaDansListe'] = "";
             }
             ?>
         </div>

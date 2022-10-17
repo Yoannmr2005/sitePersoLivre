@@ -39,6 +39,7 @@ switch ($action) {
         $genreLivre = Genre::findById($livre->getIdgenre());
         include("vues/infoLivre.php");
         break;
+    // Controlleur du téléchargement du pdf dans etre connecté
     case 'pdf':
         // Récupère l'id dans l'URL
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
