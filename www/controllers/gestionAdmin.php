@@ -54,8 +54,9 @@ switch ($action) {
         if ($btnajouter == "ajouter") {
             // Vérifie si les champs sont remplis
             if ($nom && $auteur && $annee && $vente && $description && $lien && $genre && basename($_FILES["image"]["name"]) != "" && basename($_FILES["pdf"]["name"]) != "") {
-                // Vérifie si l'année rentrée est inférieur à l'année actuelle
+                // Vérifie si le nom est déjà utilisée
                 if (Livre::VerifyIfNameExist($nom)) {
+                    // Vérifie si l'année rentrée est inférieur à l'année actuelle
                     if ($annee <= date("Y")) {
                         // Vérifie si la vente rentrée est supérieur à 0
                         if ($vente > 0) {
