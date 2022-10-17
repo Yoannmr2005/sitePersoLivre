@@ -178,3 +178,9 @@ Finalement, j'ai commencer mon PowerPoint pour la présentation de Mercredi proc
 ### Bilan 
 
 Bonne journée ou j'ai peut terminé les fonctionnalités non-prévues au début du projet ainsi que corriger un énorme bug et commencer ma présentation.
+
+## Jour 9 : Lundi 17 Octobre 
+
+### Objectif
+
+- PowerPoint
