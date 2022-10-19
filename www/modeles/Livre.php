@@ -513,4 +513,37 @@ class Livre
         }
         return false;
     }
+
+    /**
+     * Récupère les livres du genre
+     *
+     * @param int $id
+     * @return object
+     */
+    public static function GetAllBookOfGenre($id)
+    {
+        $sql = "SELECT `idlivre`, `nom`, `annee`, `description`, `auteur`, `vente`, `idgenre`, `image`, `lien`, `pdf` FROM livre WHERE `idgenre` = ?";
+        $param = [$id];
+        $query = MonPdo::dbRun($sql, $param);
+        return $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Livre');
+    }
+
+    /**
+     * Supprime les img et les pdf des livres d'un genre qui va etre supprimé
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public static function DeleteImgAndPdfOfGenre($id)
+    {
+        // Récupère les données du livre avec son id
+        $dataLivre = Livre::GetAllBookOfGenre($id);
+        // var_dump($dataLivre);
+        foreach ($dataLivre as $livre) {
+            // Supprime le livre
+            unlink("img/" . $livre->getImage());
+            // Supprime le pdf
+            unlink("pdf/" . $livre->getPdf());
+        }
+    }
 }

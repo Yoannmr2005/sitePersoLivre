@@ -55,7 +55,7 @@ switch ($action) {
             // Vérifie si les champs sont remplis
             if ($nom && $auteur && $annee && $vente && $description && $lien && $genre && basename($_FILES["image"]["name"]) != "" && basename($_FILES["pdf"]["name"]) != "") {
                 // Vérifie si le nom est déjà utilisée
-                if (Livre::VerifyIfNameExist($nom)) {
+                if (Livre::VerifyIfNameExist($nom) == false) {
                     // Vérifie si l'année rentrée est inférieur à l'année actuelle
                     if ($annee <= date("Y")) {
                         // Vérifie si la vente rentrée est supérieur à 0
@@ -303,13 +303,17 @@ switch ($action) {
         $erreurModifGenre = "";
         if ($btnModifier == "modifier") {
             if ($genre) {
-                // Modifie le genre
-                $modifGenre = new Genre();
-                $modifGenre->setGenre($genre);
-                $modifGenre->setIdgenre($id);
-                Genre::update($modifGenre);
-                header("location: index.php?uc=admin&action=listGenres");
-                exit;
+                if (Genre::GenreAlreadyExist($genre) == false) {
+                    // Modifie le genre
+                    $modifGenre = new Genre();
+                    $modifGenre->setGenre($genre);
+                    $modifGenre->setIdgenre($id);
+                    Genre::update($modifGenre);
+                    header("location: index.php?uc=admin&action=listGenres");
+                    exit;
+                }else {
+                    $erreurModifGenre = "Le nom est déjà utilisée par un autre genre";
+                }
             } else {
                 $erreurModifGenre = "Il faut écrire un genre.";
             }
@@ -326,6 +330,7 @@ switch ($action) {
         $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
         $supprimerGenre = new Genre();
         $supprimerGenre->setIdgenre($id);
+        Livre::DeleteImgAndPdfOfGenre($id);
         Livre::DeleteAllBookOfGenre($id);
         Genre::delete($supprimerGenre);
         header("location: index.php?uc=admin&action=listGenres");
