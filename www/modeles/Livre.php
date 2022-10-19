@@ -531,7 +531,7 @@ class Livre
     /**
      * Supprime les img et les pdf des livres d'un genre qui va etre supprimé
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public static function DeleteImgAndPdfOfGenre($id)
