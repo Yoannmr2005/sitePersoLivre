@@ -184,3 +184,13 @@ Bonne journée ou j'ai peut terminé les fonctionnalités non-prévues au début
 ### Objectif
 
 - PowerPoint
+
+### Déroulement
+
+Journée tranquille sans trop de pression où j'ai fait des petites corrections de code sans grande importance et j'ai fait mon PowerPoint.
+
+### Bilan
+
+J'ai fini mon projet ainsi que le PowerPoint et la documentation
+
+## Fin du projet
