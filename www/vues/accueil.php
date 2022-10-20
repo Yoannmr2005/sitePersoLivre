@@ -18,7 +18,9 @@
         foreach ($index as $livre) {
         ?>
             <div class="col border p-2">
-                <img src="img/<?= $livre->getImage() ?>" alt="">
+            <a href="index.php?uc=liste&action=livre&id=<?= $livre->getIdlivre() ?>">
+                    <img src="img/<?= $livre->getImage() ?>" alt="image du livre">
+                </a>
                 <br>
                 <?= $livre->getNom() ?>
                 <?= Livre::ChangeNumberFormat($livre->getVente()) ?>
