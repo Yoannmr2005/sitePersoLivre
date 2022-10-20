@@ -298,23 +298,27 @@ class User
     {
         $addUser = new User();
         if ($nom && $email && $mdp) {
-            if (User::NameAlreadyExists($nom) == false) {
-                if (User::EmailAlreadyExists($email) == false) {
-                    // Hash le mot de passe
-                    $hash = password_hash($mdp, PASSWORD_BCRYPT);
-                    // set les valeur des variables de la classe
-                    $addUser->setNom($nom);
-                    $addUser->setEmail($email);
-                    $addUser->setMdp($hash);
-                    $addUser->setRole($role);
-                    // Ajoute l'utilisateur
-                    User::add($addUser);
-                    return "ok";
+            if (strlen($nom) <= 45) {
+                if (User::NameAlreadyExists($nom) == false) {
+                    if (User::EmailAlreadyExists($email) == false) {
+                        // Hash le mot de passe
+                        $hash = password_hash($mdp, PASSWORD_BCRYPT);
+                        // set les valeur des variables de la classe
+                        $addUser->setNom($nom);
+                        $addUser->setEmail($email);
+                        $addUser->setMdp($hash);
+                        $addUser->setRole($role);
+                        // Ajoute l'utilisateur
+                        User::add($addUser);
+                        return "ok";
+                    } else {
+                        return "L'e-mail est déjà utilisée par un autre utilisateur";
+                    }
                 } else {
-                    return "L'e-mail est déjà utilisée par un autre utilisateur";
+                    return "Le nom est déjà utilisée par un autre utilisateur";
                 }
             } else {
-                return "Le nom est déjà utilisée par un autre utilisateur";
+                return "Le nom est trop long, il doit faire 45 caractères au maximum";
             }
         } else {
             return "Il manque une donnée";
