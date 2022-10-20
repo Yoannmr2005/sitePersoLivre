@@ -23,10 +23,15 @@
                     $_SESSION['msgLivreDejaDansListe'] = "";
                 }
                 ?>
+            <?php
+            } 
+            if (User::isUserConnected() ||User::isAdminConnected()) {
+                ?>
                 <br>
                 <a href="pdf/<?= $livre->getPdf() ?>" download class="btn btn-warning link-dark text-decoration-none" role="button" style="width: 270px;">Télecharger le pdf du livre</a>
-            <?php
-            } else {
+                <?php
+            }
+            if (User::isNotConnected()) {
             ?>
                 <a href="index.php?uc=liste&action=pdf&id=<?= $livre->getIdlivre() ?>" class="btn btn-warning link-dark text-decoration-none" role="button" style="width: 270px;">Télecharger le pdf du livre</a>
             <?php
