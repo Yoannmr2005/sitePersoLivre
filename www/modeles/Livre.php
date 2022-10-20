@@ -538,7 +538,6 @@ class Livre
     {
         // Récupère les données du livre avec son id
         $dataLivre = Livre::GetAllBookOfGenre($id);
-        // var_dump($dataLivre);
         foreach ($dataLivre as $livre) {
             // Supprime le livre
             unlink("img/" . $livre->getImage());
